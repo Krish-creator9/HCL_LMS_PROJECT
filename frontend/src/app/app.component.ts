@@ -14,8 +14,9 @@ type Row = any;
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private http = inject(HttpClient);
-  private api = '/api/v1';
+  private api = (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com'))
+    ? 'https://ordercraft-backend-427v.onrender.com/api/v1'
+    : '/api/v1';
 
   // Auth & Session State
   token = localStorage.getItem('oc-token') || '';

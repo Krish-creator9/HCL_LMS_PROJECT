@@ -5,45 +5,37 @@ server {
     root /usr/share/nginx/html;
     index index.html;
 
-    # Dynamic DNS resolver prevents nginx startup failure if upstream is not yet resolved
     resolver 1.1.1.1 8.8.8.8 127.0.0.11 valid=30s ipv6=off;
 
-    # Compression
     gzip on;
     gzip_min_length 1024;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
 
-    # Reverse proxy for backend API requests
     location /api/ {
-        set $backend "${BACKEND_URL}";
-        proxy_pass $backend/api/;
+        proxy_pass https://ordercraft-backend-427v.onrender.com/api/;
         proxy_http_version 1.1;
         proxy_ssl_server_name on;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $proxy_host;
+        proxy_ssl_name ordercraft-backend-427v.onrender.com;
+        proxy_set_header Host ordercraft-backend-427v.onrender.com;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Forwarded-Proto https;
     }
 
-    # Reverse proxy for Swagger documentation
     location /swagger-ui/ {
-        set $backend "${BACKEND_URL}";
-        proxy_pass $backend/swagger-ui/;
+        proxy_pass https://ordercraft-backend-427v.onrender.com/swagger-ui/;
         proxy_ssl_server_name on;
-        proxy_set_header Host $proxy_host;
+        proxy_ssl_name ordercraft-backend-427v.onrender.com;
+        proxy_set_header Host ordercraft-backend-427v.onrender.com;
     }
 
     location /v3/api-docs {
-        set $backend "${BACKEND_URL}";
-        proxy_pass $backend/v3/api-docs;
+        proxy_pass https://ordercraft-backend-427v.onrender.com/v3/api-docs;
         proxy_ssl_server_name on;
-        proxy_set_header Host $proxy_host;
+        proxy_ssl_name ordercraft-backend-427v.onrender.com;
+        proxy_set_header Host ordercraft-backend-427v.onrender.com;
     }
 
-    # Angular SPA routing (redirect all non-file requests to index.html)
     location / {
         try_files $uri $uri/ /index.html;
     }
