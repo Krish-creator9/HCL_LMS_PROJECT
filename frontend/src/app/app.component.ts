@@ -118,10 +118,7 @@ export class AppComponent implements OnInit, OnDestroy {
   insertJsonString = '{}';
   liveSyncActive = false;
   liveSyncTimer: any = null;
-
-  constructor() {
-    this.http = inject(HttpClient);
-  }
+  private http = inject(HttpClient);
 
   ngOnInit() {
     if (this.token) {
