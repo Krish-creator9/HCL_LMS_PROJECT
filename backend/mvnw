@@ -9,6 +9,6 @@ if [ ! -x "${MAVEN_HOME}/bin/mvn" ]; then
   curl -fsSL "${URL}" -o "${ARCHIVE}"
   mkdir -p "${HOME}/.m2/wrapper/dists"
   tar -xzf "${ARCHIVE}" -C "${HOME}/.m2/wrapper/dists"
-  mv "${HOME}/.m2/wrapper/dists/apache-maven-${MAVEN_VERSION}" "${MAVEN_HOME}"
+  rm -f "${ARCHIVE}"
 fi
 exec "${MAVEN_HOME}/bin/mvn" "$@"

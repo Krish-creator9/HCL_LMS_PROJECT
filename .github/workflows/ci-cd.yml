@@ -41,7 +41,7 @@ jobs:
         run: |
           cd backend
           chmod +x mvnw
-          ./mvnw clean package -DskipTests
+          ./mvnw clean package -DskipTests || mvn clean package -DskipTests
 
   # -------------------------------------------------------------
   # Job 2: Test & Build Frontend (Angular 22 / TypeScript)
