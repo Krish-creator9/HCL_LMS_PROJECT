@@ -1,0 +1,34 @@
+services:
+  # 1. MySQL Managed Database Service
+  - type: web
+    name: ordercraft-backend
+    env: docker
+    dockerContext: backend
+    dockerfilePath: backend/Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8081
+      - key: ORDERCRAFT_DB_URL
+        fromDatabase:
+          name: ordercraft-db
+          property: connectionString
+      - key: ORDERCRAFT_JWT_SECRET
+        generateValue: true
+
+  # 2. Frontend Angular Web Service
+  - type: web
+    name: ordercraft-frontend
+    env: docker
+    dockerContext: frontend
+    dockerfilePath: frontend/Dockerfile
+    plan: free
+    region: oregon
+
+databases:
+  - name: ordercraft-db
+    databaseName: ordercraft
+    user: ordercraft
+    plan: free
+    region: oregon

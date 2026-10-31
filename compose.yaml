@@ -1,0 +1,76 @@
+services:
+  # MySQL Database Service with automated healthcheck & persistent volume
+  db:
+    image: mysql:8.4
+    container_name: ordercraft-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ordercraft
+      MYSQL_USER: ordercraft
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ordercraft-local}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root-local-only}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD:-root-local-only}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - ordercraft-net
+
+  # Spring Boot REST API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ordercraft-backend
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ORDERCRAFT_DB_URL: jdbc:mysql://db:3306/ordercraft?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      ORDERCRAFT_DB_USER: ordercraft
+      ORDERCRAFT_DB_PASSWORD: ${MYSQL_PASSWORD:-ordercraft-local}
+      ORDERCRAFT_JWT_SECRET: ${ORDERCRAFT_JWT_SECRET:-production-secure-jwt-secret-key-ordercraft-2026}
+      PORT: 8081
+    ports:
+      - "8081:8081"
+    networks:
+      - ordercraft-net
+
+  # Angular Frontend + Nginx Reverse Proxy Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ordercraft-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "4200:80"
+    networks:
+      - ordercraft-net
+
+  # Instant Public Tunnel: Generates a free HTTPS URL accessible from ANY device or smartphone worldwide
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: ordercraft-public-tunnel
+    restart: always
+    command: tunnel --no-autoupdate --url http://frontend:80
+    depends_on:
+      - frontend
+    networks:
+      - ordercraft-net
+
+volumes:
+  mysql_data:
+
+networks:
+  ordercraft-net:
+    driver: bridge

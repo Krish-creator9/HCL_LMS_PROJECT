@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+.npm-cache/
+
+# Build artifacts
+target/
+*.jar
+*.war
+dist/
+.angular/
+
+# Environment and IDE
+.idea/
+.vscode/
+*.iml
+*.log
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.key
+*.pem
+*.env

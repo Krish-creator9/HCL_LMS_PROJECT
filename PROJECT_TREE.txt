@@ -1,0 +1,74 @@
+OrderCraft Project Directory Tree Structure (Standard HCL Submission Layout)
+
+OrderCraft/
+├── compose.yaml
+├── README.md
+├── PROJECT_TREE.txt
+├── backend/
+│   ├── .mvn/
+│   │   └── wrapper/
+│   │       ├── maven-wrapper.jar
+│   │       └── maven-wrapper.properties
+│   ├── mvnw
+│   ├── mvnw.cmd
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+│           ├── java/
+│           │   └── com/
+│           │       └── ordercraft/
+│           │           └── api/
+│           │               ├── ApiException.java
+│           │               ├── AuthController.java
+│           │               ├── DatabaseController.java
+│           │               ├── ErrorHandler.java
+│           │               ├── ExternalAdapters.java
+│           │               ├── FactoryController.java
+│           │               ├── FulfillmentController.java
+│           │               ├── Nio2PreviewConfiguration.java
+│           │               ├── OperationsController.java
+│           │               ├── OrderCraftApplication.java
+│           │               ├── PeopleController.java
+│           │               ├── SecurityConfig.java
+│           │               ├── TokenFilter.java
+│           │               └── UserContext.java
+│           └── resources/
+│               ├── application.yml
+│               └── db/
+│                   └── migration/
+│                       ├── V1__platform_and_operations_schema.sql
+│                       ├── V2__fulfillment_finance_factory.sql
+│                       ├── V3__people_and_multicompany.sql
+│                       └── V4__auth_security_and_password_reset.sql
+├── frontend/
+│   ├── angular.json
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── proxy.conf.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.spec.json
+│   ├── public/
+│   │   └── favicon.ico
+│   └── src/
+│       ├── index.html
+│       ├── main.ts
+│       ├── styles.css
+│       └── app/
+│           ├── app.component.css
+│           ├── app.component.html
+│           ├── app.component.ts
+│           ├── app.config.ts
+│           └── app.routes.ts
+├── database/
+│   ├── README.md
+│   └── migrations/
+│       ├── V1__platform_and_operations_schema.sql
+│       ├── V2__fulfillment_finance_factory.sql
+│       ├── V3__people_and_multicompany.sql
+│       └── V4__auth_security_and_password_reset.sql
+└── docs/
+    ├── DEVELOPMENT_AND_API_GUIDE.md
+    ├── ORDERCRAFT_CODEX_DEVELOPMENT_PLAN.md
+    ├── OrderCraft_Project_Requirements.md
+    └── RELEASE_RUNBOOK.md

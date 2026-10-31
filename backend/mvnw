@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -eu
+MAVEN_VERSION=3.9.16
+MAVEN_HOME="${HOME}/.m2/wrapper/dists/apache-maven-${MAVEN_VERSION}"
+if [ ! -x "${MAVEN_HOME}/bin/mvn" ]; then
+  ARCHIVE="${TMPDIR:-/tmp}/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+  URL="https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+  echo "Downloading Apache Maven ${MAVEN_VERSION} for the first run..."
+  curl -fsSL "${URL}" -o "${ARCHIVE}"
+  mkdir -p "${HOME}/.m2/wrapper/dists"
+  tar -xzf "${ARCHIVE}" -C "${HOME}/.m2/wrapper/dists"
+  mv "${HOME}/.m2/wrapper/dists/apache-maven-${MAVEN_VERSION}" "${MAVEN_HOME}"
+fi
+exec "${MAVEN_HOME}/bin/mvn" "$@"

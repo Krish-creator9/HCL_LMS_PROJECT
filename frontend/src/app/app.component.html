@@ -1,0 +1,799 @@
+@if (!token) {
+  <main class="min-vh-100 d-flex flex-column flex-lg-row auth-hero-gradient">
+    <div class="col-lg-6 d-flex flex-column justify-content-between p-4 p-md-5 text-white position-relative" style="z-index: 1;">
+      <div>
+        <div class="d-flex align-items-center gap-3 mb-5">
+          <div class="rounded-3 bg-primary text-white fw-bold fs-4 px-3 py-2 shadow-sm d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">OC</div>
+          <div>
+            <div class="small text-uppercase text-info tracking-wider fw-semibold" style="letter-spacing: 0.1em;">Next-Gen Industrial ERP</div>
+            <div class="h3 mb-0 fw-bold brand-title">OrderCraft Portal</div>
+          </div>
+        </div>
+
+        <div class="my-5 py-lg-4">
+          <span class="badge bg-primary bg-opacity-25 text-info border border-info border-opacity-25 px-3 py-2 rounded-pill mb-3">
+            <span class="pulse-indicator me-2"></span> MySQL 8.0 Cloud Sync Active
+          </span>
+          <h1 class="display-5 fw-bold mb-3 brand-title">Intelligent Plant Operations & Live Database</h1>
+          <p class="lead text-light text-opacity-75 mb-4" style="max-width: 500px;">
+            Unified operations management for dynamic BOM demand, work center scheduling, auditable inventory ledgers, and live MySQL data records.
+          </p>
+
+          <div class="row g-3" style="max-width: 520px;">
+            <div class="col-6">
+              <div class="p-3 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10 backdrop-blur">
+                <div class="text-info fw-bold fs-5">55+</div>
+                <div class="small text-light text-opacity-75">Active Database Tables</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10 backdrop-blur">
+                <div class="text-info fw-bold fs-5">100%</div>
+                <div class="small text-light text-opacity-75">Audited Stock Ledgers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center small text-light text-opacity-50">
+        <span>ORDERCRAFT ENTERPRISE · PHASE 4</span>
+        <span>MySQL 8.0 LTS Connected</span>
+      </div>
+    </div>
+
+    <div class="col-lg-6 d-flex align-items-center justify-content-center p-3 p-md-5 bg-white position-relative" style="z-index: 1;">
+      <div class="w-100" style="max-width: 440px;">
+        @if (toast) { <div class="alert alert-success py-2 shadow-sm mb-3">✓ {{toast}}</div> }
+        @if (error) { <div class="alert alert-danger py-2 shadow-sm mb-3" role="alert">{{error}}</div> }
+
+        @if (authMode === 'login') {
+          <div class="mb-4">
+            <h2 class="h4 fw-bold text-dark mb-1">Welcome back</h2>
+            <p class="text-secondary small">Access your manufacturing plant workspace and data records.</p>
+          </div>
+
+          <div class="mb-3">
+            <button class="btn btn-google w-100 py-2 shadow-sm" (click)="googleSignIn()" [disabled]="loading">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Continue with Google / Gmail</span>
+            </button>
+            <div class="text-end mt-1">
+              <a href="#" class="small text-decoration-none text-muted" (click)="$event.preventDefault(); showGoogleModal = true">Custom Gmail account?</a>
+            </div>
+          </div>
+
+          <div class="position-relative text-center my-3">
+            <hr class="text-muted">
+            <span class="position-absolute top-50 start-50 translate-middle bg-white px-2 text-muted small">or sign in with password</span>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold" for="loginEmail">Email address</label>
+            <input id="loginEmail" class="form-control" type="email" [(ngModel)]="login.email" placeholder="name@company.com" autocomplete="username">
+          </div>
+
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <label class="form-label small fw-semibold" for="loginPassword">Password</label>
+              <a href="#" class="small text-primary text-decoration-none" (click)="$event.preventDefault(); authMode = 'forgot'; forgotStep = 1; error = ''">Forgot password?</a>
+            </div>
+            <div class="input-group">
+              <input id="loginPassword" class="form-control" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="login.password" autocomplete="current-password">
+              <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword">{{showPassword ? 'Hide' : 'Show'}}</button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 py-2 fw-semibold" (click)="signIn()" [disabled]="loading">
+            {{loading ? 'Authenticating…' : 'Sign in to workspace'}}
+          </button>
+
+          <div class="mt-4 p-3 bg-light rounded-3 border">
+            <div class="small fw-semibold text-secondary mb-2">⚡ Quick 1-Click Demo Profiles:</div>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-sm btn-outline-dark" (click)="quickProfile('admin')">Admin (Jordan)</button>
+              <button class="btn btn-sm btn-outline-primary" (click)="quickProfile('google')">Gmail (Krishna)</button>
+              <button class="btn btn-sm btn-outline-secondary" (click)="quickProfile('operator')">Operator (Alex)</button>
+            </div>
+          </div>
+
+          <div class="text-center mt-3">
+            <span class="small text-secondary">Don't have an account? </span>
+            <a href="#" class="small text-primary fw-semibold text-decoration-none" (click)="$event.preventDefault(); authMode = 'register'; error = ''">Sign up</a>
+          </div>
+        }
+
+        @if (authMode === 'forgot') {
+          <div>
+            <div class="mb-4">
+              <button class="btn btn-sm btn-link p-0 text-decoration-none text-secondary mb-2" (click)="authMode = 'login'; error = ''">← Back to sign in</button>
+              <h2 class="h4 fw-bold text-dark mb-1">Reset your password</h2>
+              <p class="text-secondary small">Follow the steps below to recover access to your plant account.</p>
+            </div>
+
+            @if (forgotStep === 1) {
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Enter your account email</label>
+                <input class="form-control" type="email" [(ngModel)]="forgotEmail" placeholder="admin@ordercraft.local">
+                <div class="form-text">We will verify your email and generate a secure 6-digit verification code.</div>
+              </div>
+              <button class="btn btn-primary w-100 py-2 fw-semibold" (click)="requestPasswordReset()" [disabled]="loading">
+                {{loading ? 'Generating Code…' : 'Send Reset Code'}}
+              </button>
+            }
+
+            @if (forgotStep === 2) {
+              <div class="alert alert-info py-2 small mb-3">
+                A 6-digit verification code has been dispatched. Enter it below with your new password.
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">6-Digit Verification Code</label>
+                <input class="form-control font-monospace text-center fs-5 tracking-widest" maxlength="6" [(ngModel)]="resetCode" placeholder="000000">
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">New Password</label>
+                <input class="form-control" type="password" [(ngModel)]="newPassword" placeholder="Enter new strong password">
+              </div>
+              <button class="btn btn-success w-100 py-2 fw-semibold" (click)="submitPasswordReset()" [disabled]="loading">
+                {{loading ? 'Resetting…' : 'Set New Password & Sign In'}}
+              </button>
+              <div class="text-center mt-2">
+                <button class="btn btn-link btn-sm text-secondary" (click)="forgotStep = 1">Didn't get code? Request new one</button>
+              </div>
+            }
+          </div>
+        }
+
+        @if (authMode === 'register') {
+          <div>
+            <div class="mb-4">
+              <button class="btn btn-sm btn-link p-0 text-decoration-none text-secondary mb-2" (click)="authMode = 'login'; error = ''">← Back to sign in</button>
+              <h2 class="h4 fw-bold text-dark mb-1">Create Plant Account</h2>
+              <p class="text-secondary small">Set up credentials to access manufacturing operations and database.</p>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Full Name</label>
+              <input class="form-control" [(ngModel)]="registerForm.fullName" placeholder="e.g. Sarah Connor">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Email address</label>
+              <input class="form-control" type="email" [(ngModel)]="registerForm.email" placeholder="sarah@ordercraft.local">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Password</label>
+              <input class="form-control" type="password" [(ngModel)]="registerForm.password" placeholder="At least 8 characters">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Plant / Company Assignment</label>
+              <input class="form-control" [(ngModel)]="registerForm.companyName" placeholder="Chicago Plant 01" readonly>
+              <div class="form-text">New registrations default to Chicago Plant 01 as Operator.</div>
+            </div>
+
+            <button class="btn btn-primary w-100 py-2 fw-semibold" (click)="registerUser()" [disabled]="loading">
+              {{loading ? 'Registering…' : 'Create Account & Sign In'}}
+            </button>
+
+            <div class="text-center mt-3">
+              <span class="small text-secondary">Already have an account? </span>
+              <a href="#" class="small text-primary fw-semibold text-decoration-none" (click)="$event.preventDefault(); authMode = 'login'">Sign in</a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+
+  @if (showGoogleModal) {
+    <div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index: 1090;" (click)="showGoogleModal = false">
+      <div class="card border-0 shadow-lg w-100" style="max-width: 440px;" (click)="$event.stopPropagation()">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+          <div class="fw-bold">Sign in with custom Google / Gmail account</div>
+          <button class="btn-close" (click)="showGoogleModal = false"></button>
+        </div>
+        <div class="card-body">
+          <p class="small text-secondary mb-3">Enter your Gmail account details to automatically connect or create your user record in MySQL.</p>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Gmail Address</label>
+            <input class="form-control" type="email" [(ngModel)]="googleEmail" placeholder="your.name@gmail.com">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Display Name</label>
+            <input class="form-control" [(ngModel)]="googleName" placeholder="Your Full Name">
+          </div>
+          <button class="btn btn-primary w-100" (click)="googleSignIn(googleEmail, googleName)">Connect with this Google Account</button>
+        </div>
+      </div>
+    </div>
+  }
+} @else {
+<div class="min-vh-100 bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+    <div class="container-fluid gap-3">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-semibold" href="#" (click)="$event.preventDefault();navigate('dashboard')"><span class="rounded bg-primary px-2 py-1 fw-bold">OC</span> OrderCraft <span class="badge text-bg-secondary">OPS</span></a>
+      <div class="d-flex align-items-center gap-2 ms-auto order-lg-3">
+        <span class="d-none d-xl-inline small text-white-50">● All systems operational</span>
+        <div class="text-end d-none d-md-block text-white"><span class="small fw-semibold d-block">{{user.name}}</span><span class="small text-white-50">{{user.role}}</span></div>
+        <button class="btn btn-outline-light btn-sm" (click)="signOut()">Sign out</button>
+      </div>
+      <button class="navbar-toggler" type="button" (click)="navMenuOpen = !navMenuOpen" [attr.aria-expanded]="navMenuOpen" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse order-lg-2" [class.show]="navMenuOpen" id="mainNav">
+        <div class="navbar-nav me-auto">
+          <button class="nav-link" [class.active]="section==='dashboard'" (click)="navigate('dashboard')">Operations Hub</button>
+          <button class="nav-link" [class.active]="section==='orders'" (click)="navigate('orders')">Sales Orders <span class="badge text-bg-secondary ms-1">{{dashboard.openOrders||0}}</span></button>
+          <button class="nav-link" [class.active]="section==='production'" (click)="navigate('production')">Production</button>
+          <button class="nav-link" [class.active]="section==='inventory'" (click)="navigate('inventory')">Inventory</button>
+          <button class="nav-link" [class.active]="section==='purchasing'" (click)="navigate('purchasing')">Purchasing</button>
+          <button class="nav-link" [class.active]="section==='master-data'" (click)="navigate('master-data')">Master Data</button>
+          <button class="nav-link" [class.active]="section==='database'" (click)="navigate('database')"><span class="badge text-bg-info me-1">MySQL</span> Data Explorer</button>
+          @if (user.role === 'ADMIN') { <button class="nav-link" [class.active]="section==='admin'" (click)="navigate('admin')">User Access</button> }
+        </div>
+        <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mt-lg-0">
+          <select class="form-select form-select-sm bg-dark text-white border-secondary" style="max-width:210px" aria-label="Plant" [(ngModel)]="companyId" (change)="selectCompany()">@for(c of companies;track c.id){<option [value]="c.id">{{c.name}} · {{c.code}}</option>}</select>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="container-fluid px-3 px-lg-4 py-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 small text-secondary mb-3"><span>Workspace <span class="mx-2">/</span><strong class="text-body">{{title()}}</strong></span><span>{{today | date:'EEE, MMM d, y'}}</span></div>
+    @if (error) { <div class="alert alert-danger alert-dismissible py-2" role="alert">{{error}}<button type="button" class="btn-close" aria-label="Dismiss" (click)="error=''"></button></div> }
+    @if (loading && (section !== 'dashboard' || dashboard.openOrders == null)) { <div class="progress mb-3" role="progressbar" aria-label="Loading"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%"></div></div> }
+    @if (section==='dashboard') {
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><div class="small text-uppercase text-primary fw-semibold">MANUFACTURING OPERATIONS · LIVE</div><h1 class="h3 fw-bold mt-1 mb-1">Operations Hub</h1><p class="text-secondary mb-0">Plant performance and active manufacturing work at a glance.</p></div><div class="d-flex gap-2"><button class="btn btn-outline-secondary" (click)="load()">↻ Refresh</button><button class="btn btn-primary" (click)="navigate('orders');showOrder=true">＋ New sales order</button></div></div>
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card h-100 shadow-sm border-0"><div class="card-body"><div class="small text-secondary fw-semibold">OPEN SALES ORDERS</div><div class="display-6 fw-semibold">{{dashboard.openOrders ?? '—'}}</div><div class="small text-secondary">Across active customers</div></div></article></div>
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card h-100 shadow-sm border-0"><div class="card-body"><div class="small text-secondary fw-semibold">ACTIVE WORK ORDERS</div><div class="display-6 fw-semibold">{{dashboard.activeWorkOrders ?? '—'}}</div><div class="small text-secondary">In progress or awaiting material</div></div></article></div>
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card h-100 shadow-sm border-0"><div class="card-body"><div class="small text-secondary fw-semibold">LOW STOCK ALERTS</div><div class="display-6 fw-semibold text-warning">{{dashboard.lowStock ?? '—'}}</div><div class="small text-secondary">At or below reorder point</div></div></article></div>
+        <div class="col-12 col-sm-6 col-xl-3"><article class="card h-100 shadow-sm border-0"><div class="card-body"><div class="small text-secondary fw-semibold">OPEN PURCHASE ORDERS</div><div class="display-6 fw-semibold">{{dashboard.openPurchaseOrders ?? '—'}}</div><button class="btn btn-link btn-sm p-0" (click)="navigate('purchasing')">View purchase orders →</button></div></article></div>
+      </div>
+      <div class="row g-3">
+        <div class="col-12 col-xl-8"><section class="card shadow-sm border-0 h-100"><div class="card-header bg-white d-flex justify-content-between align-items-center py-3"><div><h2 class="h6 fw-bold mb-1">Sales order queue</h2><span class="small text-secondary">Recent customer demand and due dates</span></div><button class="btn btn-link btn-sm" (click)="navigate('orders')">All orders →</button></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>ORDER</th><th>CUSTOMER</th><th>LINES</th><th>DUE DATE</th><th>STATUS</th></tr></thead><tbody>@for(o of dashboard.recentOrders||[];track o.id){<tr><td class="font-monospace fw-semibold text-primary">{{o.orderNo}}</td><td>{{o.customer}}</td><td>{{o.lines}}</td><td>{{o.dueDate||'—'}}</td><td><span class="badge" [class]="'badge '+(o.status==='CONFIRMED'?'text-bg-success':'text-bg-secondary')">{{o.status}}</span></td></tr>}@empty{<tr><td colspan="5" class="text-center text-secondary py-4">No orders yet. Create a sales order to begin.</td></tr>}</tbody></table></div></section></div>
+        <div class="col-12 col-xl-4"><section class="card shadow-sm border-0 h-100"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Material watch</h2><span class="small text-secondary">Available quantity against reorder levels</span></div><div class="card-body">@for(item of (dashboard.inventory||[]).slice(0,5);track item.productId){<div class="mb-3"><div class="d-flex justify-content-between gap-2"><strong>{{item.name}}</strong><span class="font-monospace">{{item.onHand-item.reserved}} {{item.unit}}</span></div><div class="small text-secondary mb-1">{{item.sku}} · reorder at {{item.reorderPoint}}</div><div class="progress" style="height:6px"><div class="progress-bar" [class.bg-warning]="item.onHand-item.reserved<=item.reorderPoint" [style.width.%]="stockWidth(item)"></div></div></div>}<button class="btn btn-outline-primary btn-sm w-100 mt-2" (click)="navigate('inventory')">Open inventory ledger</button></div></section></div>
+        <div class="col-12 col-lg-6"><section class="card shadow-sm border-0"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Production status</h2><span class="small text-secondary">Work orders on the floor</span></div><div class="card-body d-flex justify-content-around align-items-center"><div class="text-center"><div class="display-6 fw-semibold">{{dashboard.activeWorkOrders||0}}</div><div class="small text-secondary">active work orders</div></div><div><div class="mb-2"><span class="badge text-bg-success me-2">●</span>In progress</div><div><span class="badge text-bg-warning me-2">●</span>Material shortage</div></div><button class="btn btn-link" (click)="navigate('production')">Production board →</button></div></section></div>
+        <div class="col-12 col-lg-6"><section class="card shadow-sm border-0"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Latest stock movements</h2><span class="small text-secondary">Recent inventory activity</span></div><div class="list-group list-group-flush">@for(m of (dashboard.recentMovements||[]).slice(0,5);track m.id){<div class="list-group-item d-flex justify-content-between align-items-center"><div><strong>{{m.sku}}</strong> <span class="text-secondary">{{m.name}}</span><div class="small text-secondary">{{m.referenceType}} · {{m.createdAt|date:'MMM d, h:mm a'}}</div></div><span class="badge" [class]="'badge '+(m.type==='RECEIVE'||m.type==='FINISH'?'text-bg-success':'text-bg-secondary')">{{m.type==='RECEIVE'||m.type==='FINISH'?'+':'−'}}{{m.quantity}}</span></div>}@empty{<div class="list-group-item text-secondary">No stock movements yet.</div>}</div></section></div>
+      </div>
+    }
+    @if (section==='orders') {
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><div class="small text-uppercase text-primary fw-semibold">CUSTOMER DEMAND · ORDER MANAGEMENT</div><h1 class="h3 fw-bold mt-1 mb-1">Sales Orders</h1><p class="text-secondary mb-0">Manage customer demand and trace every order into production.</p></div><div class="d-flex gap-2"><button class="btn btn-outline-secondary" (click)="export('orders')">⇩ Export CSV</button><button class="btn btn-primary" (click)="showOrder=true">＋ New sales order</button></div></div>
+      <section class="card shadow-sm border-0"><div class="card-body border-bottom"><div class="row g-2 align-items-center"><div class="col-12 col-md-5"><input class="form-control" [(ngModel)]="searchTerm" placeholder="Search orders or customers" aria-label="Search orders"></div><div class="col-8 col-md-3"><select class="form-select" [(ngModel)]="statusFilter"><option value="ALL">All statuses</option><option value="DRAFT">Draft</option><option value="CONFIRMED">Confirmed</option></select></div><div class="col text-md-end small text-secondary">{{visibleOrders().length}} orders</div></div></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>ORDER NUMBER</th><th>CUSTOMER</th><th>ORDER LINES</th><th>QUANTITY</th><th>DUE DATE</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody>@for(o of visibleOrders();track o.id){<tr><td class="font-monospace fw-semibold text-primary">{{o.orderNo}}</td><td>{{o.customer}}</td><td>{{o.lines}} line(s)</td><td>{{o.quantity}}</td><td>{{o.dueDate||'—'}}</td><td><span class="badge" [class]="'badge '+(o.status==='CONFIRMED'?'text-bg-success':'text-bg-secondary')">{{o.status}}</span></td><td>@if(o.status==='DRAFT'){<button class="btn btn-outline-primary btn-sm" (click)="confirmOrder(o)">Confirm</button>}</td></tr>}@empty{<tr><td colspan="7" class="text-center text-secondary py-4">No customer orders found.</td></tr>}</tbody></table></div></section>
+    }
+    @if (section==='production') {
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><div class="small text-uppercase text-primary fw-semibold">SHOP FLOOR · WORK CENTER EXECUTION</div><h1 class="h3 fw-bold mt-1 mb-1">Production Planning</h1><p class="text-secondary mb-0">Track material readiness, report good quantity, and monitor completion.</p></div><button class="btn btn-outline-secondary" (click)="export('work-orders')">⇩ Export CSV</button></div>
+      <div class="row g-3 mb-3"><div class="col-12 col-sm-4"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-secondary">ACTIVE WORK ORDERS</div><div class="h2 mb-0">{{workOrders.length}}</div></div></div></div><div class="col-12 col-sm-4"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-secondary">MATERIAL SHORTAGE</div><div class="h2 text-warning mb-0">{{shortageCount()}}</div></div></div></div><div class="col-12 col-sm-4"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-secondary">COMPLETED</div><div class="h2 text-success mb-0">{{completedCount()}}</div></div></div></div></div>
+      <section class="card shadow-sm border-0"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Work order schedule</h2><span class="small text-secondary">Confirmed orders linked to frozen BOM revisions</span></div><div class="card-body border-bottom"><div class="row g-2 align-items-center"><div class="col-12 col-md-5"><input class="form-control" [(ngModel)]="searchTerm" placeholder="Search work orders or products"></div><div class="col-8 col-md-3"><select class="form-select" [(ngModel)]="statusFilter"><option value="ALL">All statuses</option><option value="IN_PROGRESS">In progress</option><option value="MATERIAL_SHORTAGE">Material shortage</option><option value="COMPLETED">Completed</option></select></div><div class="col text-md-end small text-secondary">{{visibleWorkOrders().length}} work orders</div></div></div><div class="table-responsive"><table class="table table-hover align-middle mb-0\"><thead class="table-light\"><tr><th>WORK ORDER</th><th>PRODUCT</th><th>SALES ORDER</th><th>QUANTITY</th><th>PROGRESS</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody>@for(w of visibleWorkOrders();track w.id){<tr><td class="font-monospace fw-semibold text-primary">{{w.workNo}}</td><td><strong>{{w.product}}</strong><div class="small text-secondary">{{w.sku}}</div></td><td class="font-monospace">{{w.orderNo}}</td><td>{{w.quantity}} ea</td><td><div class="d-flex align-items-center gap-2"><div class="progress flex-grow-1" style="height:7px"><div class="progress-bar" [style.width.%]="w.progress||0"></div></div><span>{{w.progress||0}}%</span></div></td><td><span class="badge" [class]="'badge '+(w.status==='IN_PROGRESS'?'text-bg-primary':w.status==='MATERIAL_SHORTAGE'?'text-bg-warning':w.status==='COMPLETED'?'text-bg-success':'text-bg-secondary')">{{w.status}}</span></td><td class="text-nowrap">@if(w.status==='MATERIAL_SHORTAGE'||w.status==='PLANNED'){<button class="btn btn-outline-primary btn-sm" (click)="reserve(w)">Reserve</button>} @if(w.status==='IN_PROGRESS'){<button class="btn btn-primary btn-sm" (click)="report(w)">＋ Report</button>}</td></tr>}@empty{<tr><td colspan="7" class="text-center text-secondary py-4">Confirm a sales order to create a work order.</td></tr>}</tbody></table></div></section>
+    }
+    @if (section==='inventory') {
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><div class="small text-uppercase text-primary fw-semibold">MATERIALS · FINISHED GOODS · TRACEABILITY</div><h1 class="h3 fw-bold mt-1 mb-1">Inventory & Stock</h1><p class="text-secondary mb-0">On-hand, reserved, and available balances from the movement ledger.</p></div><div class="d-flex gap-2"><button class="btn btn-outline-secondary" (click)="export('inventory')">⇩ Export CSV</button>@if(user.role==='ADMIN'||user.role==='MANAGER'){<button class="btn btn-primary" (click)="showAdjustment=true">± Adjust stock</button>}</div></div>
+      <div class="row g-3 mb-3"><div class="col-12 col-sm-4"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-secondary">SKU COUNT</div><div class="h2 mb-0">{{inventory.length}}</div></div></div></div><div class="col-12 col-sm-4"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-secondary">LOW STOCK ITEMS</div><div class="h2 text-warning mb-0">{{lowInventoryCount()}}</div></div></div></div><div class="col-12 col-sm-4"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-secondary">WAREHOUSES</div><div class="h2 mb-0">{{warehouses.length||2}}</div></div></div></div></div>
+      <section class="card shadow-sm border-0 mb-3"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Stock position</h2><span class="small text-secondary">Movement history is immutable; corrections are recorded as adjustments.</span></div><div class="card-body border-bottom"><div class="row align-items-center"><div class="col-12 col-md-5"><input class="form-control" [(ngModel)]="searchTerm" placeholder="Search SKU or item"></div><div class="col text-md-end small text-secondary">{{visibleInventory().length}} items</div></div></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>SKU</th><th>ITEM</th><th>TYPE</th><th>ON HAND</th><th>RESERVED</th><th>AVAILABLE</th><th>REORDER AT</th><th>STATUS</th></tr></thead><tbody>@for(i of visibleInventory();track i.productId){<tr><td class="font-monospace text-primary">{{i.sku}}</td><td>{{i.name}}</td><td>{{i.kind}}</td><td>{{i.onHand}} {{i.unit}}</td><td>{{i.reserved}} {{i.unit}}</td><td class="fw-semibold">{{available(i)}} {{i.unit}}</td><td>{{i.reorderPoint}}</td><td><span class="badge" [class]="'badge '+(available(i)<=i.reorderPoint?'text-bg-warning':'text-bg-success')">{{available(i)<=i.reorderPoint?'LOW STOCK':'READY'}}</span></td></tr>}@empty{<tr><td colspan="8" class="text-center text-secondary py-4">No inventory items found.</td></tr>}</tbody></table></div></section>
+      <section class="card shadow-sm border-0"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Stock movement ledger</h2><span class="small text-secondary">Latest 300 immutable receipts, reservations, consumption, and corrections</span></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>DATE</th><th>SKU</th><th>ITEM</th><th>MOVEMENT</th><th>QUANTITY</th><th>REFERENCE</th><th>WAREHOUSE</th></tr></thead><tbody>@for(m of movements;track m.id){<tr><td>{{m.createdAt|date:'MMM d, y h:mm a'}}</td><td class="font-monospace">{{m.sku}}</td><td>{{m.product}}</td><td>{{m.type}}</td><td>{{m.quantity}}</td><td>{{m.referenceType}} {{m.referenceId||''}}</td><td>{{m.warehouse}}</td></tr>}@empty{<tr><td colspan="7" class="text-center text-secondary py-4">No stock movements yet.</td></tr>}</tbody></table></div></section>
+    }
+    @if (section==='purchasing') {
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><div class="small text-uppercase text-primary fw-semibold">SUPPLY CHAIN · GOODS RECEIPTS</div><h1 class="h3 fw-bold mt-1 mb-1">Purchasing</h1><p class="text-secondary mb-0">Create purchase orders and receive material into warehouse stock.</p></div><div class="d-flex gap-2"><button class="btn btn-outline-secondary" (click)="export('purchase-orders')">⇩ Export CSV</button><button class="btn btn-primary" (click)="showPo=true">＋ Create purchase order</button></div></div>
+      <section class="card shadow-sm border-0"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Purchase orders</h2><span class="small text-secondary">Partial receipts update inventory and retain receiving history.</span></div><div class="card-body border-bottom"><div class="row g-2 align-items-center"><div class="col-12 col-md-5"><input class="form-control" [(ngModel)]="searchTerm" placeholder="Search purchase orders or suppliers"></div><div class="col-8 col-md-3"><select class="form-select" [(ngModel)]="statusFilter"><option value="ALL">All statuses</option><option value="OPEN">Open</option><option value="PARTIAL">Partial</option><option value="RECEIVED">Received</option></select></div><div class="col text-md-end small text-secondary">{{visiblePurchaseOrders().length}} purchase orders</div></div></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>PO NUMBER</th><th>SUPPLIER</th><th>LINES</th><th>ORDER QTY</th><th>RECEIVED</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody>@for(po of visiblePurchaseOrders();track po.id){<tr><td class="font-monospace fw-semibold text-primary">{{po.poNo}}</td><td>{{po.supplier}}</td><td>{{po.lines}} line(s)</td><td>{{po.quantity}}</td><td>{{po.received||0}}</td><td><span class="badge" [class]="'badge '+(po.status==='RECEIVED'?'text-bg-success':po.status==='PARTIAL'?'text-bg-warning':'text-bg-primary')">{{po.status}}</span></td><td>@if(po.status!=='RECEIVED'){<button class="btn btn-outline-primary btn-sm" (click)="receive(po)">Receive goods</button>}</td></tr>}@empty{<tr><td colspan="7" class="text-center text-secondary py-4">No purchase orders yet.</td></tr>}</tbody></table></div></section>
+    }
+    @if (section==='master-data') {
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <div>
+          <div class="small text-uppercase text-primary fw-semibold">FOUNDATION · VERSIONED MANUFACTURING DATA</div>
+          <h1 class="h3 fw-bold mt-1 mb-1">Master Data</h1>
+          <p class="text-secondary mb-0">Customers, suppliers, materials, products, and active BOM revisions.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-primary" (click)="showProductModal=true">＋ Add Product / Material</button>
+          <button class="btn btn-outline-primary" (click)="showCustomerModal=true">＋ Add Customer</button>
+          <button class="btn btn-outline-primary" (click)="showSupplierModal=true">＋ Add Supplier</button>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-12 col-xl-6">
+          <section class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+              <h2 class="h6 fw-bold mb-0">Products & materials <span class="badge text-bg-light">{{products.length}}</span></h2>
+              <button class="btn btn-sm btn-outline-primary" (click)="showProductModal=true">＋ Add Product</button>
+            </div>
+            <div class="list-group list-group-flush overflow-auto" style="max-height: 400px;">
+              @for(p of products;track p.id){
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>{{p.name}}</strong>
+                    <div class="small text-secondary"><span class="font-monospace text-primary">{{p.sku}}</span> · {{p.kind}} · {{p.unit}}</div>
+                  </div>
+                  <span class="badge text-bg-light border">Reorder at {{p.reorderPoint}}</span>
+                </div>
+              } @empty {
+                <div class="p-3 text-center text-secondary small">No products yet. Click "Add Product" to create one.</div>
+              }
+            </div>
+          </section>
+        </div>
+        <div class="col-12 col-xl-6">
+          <section class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+              <h2 class="h6 fw-bold mb-0">Customers <span class="badge text-bg-light">{{customers.length}}</span></h2>
+              <button class="btn btn-sm btn-outline-primary" (click)="showCustomerModal=true">＋ Add Customer</button>
+            </div>
+            <div class="list-group list-group-flush overflow-auto" style="max-height: 400px;">
+              @for(c of customers;track c.id){
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>{{c.name}}</strong>
+                    <div class="small text-secondary"><span class="font-monospace">{{c.code}}</span> · {{c.email||'No email'}}</div>
+                  </div>
+                  <span class="badge text-bg-success">ACTIVE</span>
+                </div>
+              } @empty {
+                <div class="p-3 text-center text-secondary small">No customers yet. Click "Add Customer" to create one.</div>
+              }
+            </div>
+          </section>
+        </div>
+        <div class="col-12 col-xl-6">
+          <section class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+              <h2 class="h6 fw-bold mb-0">Suppliers <span class="badge text-bg-light">{{suppliers.length}}</span></h2>
+              <button class="btn btn-sm btn-outline-primary" (click)="showSupplierModal=true">＋ Add Supplier</button>
+            </div>
+            <div class="list-group list-group-flush overflow-auto" style="max-height: 400px;">
+              @for(s of suppliers;track s.id){
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>{{s.name}}</strong>
+                    <div class="small text-secondary"><span class="font-monospace">{{s.code}}</span> · {{s.leadDays}} day lead time</div>
+                  </div>
+                  <span class="badge text-bg-success">ACTIVE</span>
+                </div>
+              } @empty {
+                <div class="p-3 text-center text-secondary small">No suppliers yet. Click "Add Supplier" to create one.</div>
+              }
+            </div>
+          </section>
+        </div>
+        <div class="col-12 col-xl-6">
+          <section class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white py-3">
+              <h2 class="h6 fw-bold mb-0">Bill of materials</h2>
+            </div>
+            <div class="list-group list-group-flush">
+              <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Hydraulic Pump Assembly</strong>
+                  <div class="small text-secondary">FG-100 · Revision 3 · 3 components</div>
+                </div>
+                <span class="badge text-bg-success">ACTIVE</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    }
+    @if (section==='admin') {
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><div class="small text-uppercase text-primary fw-semibold">TENANT SECURITY · COMPANY ROLE ASSIGNMENTS</div><h1 class="h3 fw-bold mt-1 mb-1">User Access</h1><p class="text-secondary mb-0">Users inherit tenant scope from account and company role assignment.</p></div><button class="btn btn-primary" (click)="showUser=true">＋ Add user</button></div>
+      <section class="card shadow-sm border-0"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Company users</h2><span class="small text-secondary">Administrators manage access by role.</span></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>NAME</th><th>EMAIL</th><th>COMPANY</th><th>ROLE</th><th>STATUS</th></tr></thead><tbody>@for(u of users;track u.id){<tr><td>{{u.name}}</td><td>{{u.email}}</td><td>{{u.company}}</td><td><span class="badge text-bg-secondary">{{u.role}}</span></td><td><span class="badge text-bg-success">ACTIVE</span></td></tr>}@empty{<tr><td colspan="5" class="text-center text-secondary py-4">No company users found.</td></tr>}</tbody></table></div></section>
+    }
+    <section class="card border-0 shadow-sm mb-4">
+      <div class="card-body d-flex flex-wrap align-items-center gap-2">
+        <span class="small text-secondary me-2">WORKSPACES</span>
+        <button class="btn btn-sm btn-outline-primary" (click)="navigate('fulfillment')">Shipping & invoicing</button>
+        <button class="btn btn-sm btn-outline-primary" (click)="navigate('factory')">Factory floor</button>
+        <button class="btn btn-sm btn-outline-primary" (click)="navigate('payroll')">Payroll</button>
+        <button class="btn btn-sm btn-outline-primary" (click)="navigate('company-settings')">Company books</button>
+        <button class="btn btn-sm btn-outline-primary" (click)="navigate('consolidated')">Consolidated reports</button>
+      </div>
+    </section>
+
+    @if(section==='fulfillment'){
+      <section class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
+          <div><h2 class="h6 fw-bold mb-1">Shipments & customer invoices</h2><div class="small text-secondary">Invoices are generated from shipped quantities. Payments can be recorded in parts.</div></div>
+          <button class="btn btn-outline-secondary btn-sm" (click)="load()">Refresh</button>
+        </div>
+        <div class="card-body border-bottom"><h3 class="h6 fw-semibold">Create a partial shipment</h3><div class="row g-2 align-items-end"><div class="col-md-3"><label class="form-label small">Sales order</label><select class="form-select" [(ngModel)]="shipmentForm.orderId" (change)="loadOrderLines(shipmentForm.orderId)"><option value="">Select order</option>@for(o of orders;track o.id){<option [value]="o.id">{{o.orderNo}} · {{o.customer}}</option>}</select></div><div class="col-md-3"><label class="form-label small">Order line</label><select class="form-select" [(ngModel)]="shipmentForm.orderLineId"><option value="">Select line</option>@for(l of orderLines;track l.orderLineId){<option [value]="l.orderLineId">{{l.sku}} · {{l.name}} · remaining {{l.quantity-l.shipped}}</option>}</select></div><div class="col-md-2"><label class="form-label small">Ship quantity</label><input class="form-control" type="number" min="0.001" step="0.001" [(ngModel)]="shipmentForm.quantity"></div><div class="col-md-2"><label class="form-label small">Carrier code</label><input class="form-control" [(ngModel)]="shipmentForm.carrierCode"></div><div class="col-md-2"><label class="form-label small">Tracking reference</label><input class="form-control" [(ngModel)]="shipmentForm.trackingNumber"></div><div class="col-12 d-flex justify-content-end"><button class="btn btn-primary" (click)="createShipment()">Record shipment</button></div></div></div>
+        <div class="card-body border-bottom"><div class="row g-3"><div class="col-sm-6"><div class="small text-secondary">SHIPMENTS</div><div class="h3 mb-0">{{shipments.length}}</div></div><div class="col-sm-6"><div class="small text-secondary">OPEN INVOICE BALANCE</div><div class="h3 mb-0">{{invoices.length}}</div></div></div></div>
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>SHIPMENT</th><th>ORDER</th><th>STATUS</th><th>TRACKING</th><th>ACTION</th></tr></thead><tbody>
+          @for(s of shipments;track s.id){<tr><td class="font-monospace">SHP-{{s.id}}</td><td>{{s.orderNo||s.orderId}}</td><td><span class="badge text-bg-info">{{s.status}}</span></td><td>{{s.trackingNumber||'—'}}</td><td><button class="btn btn-sm btn-outline-primary" (click)="issueInvoice(s)">Create invoice</button></td></tr>}
+          @empty{<tr><td colspan="5" class="text-center text-secondary py-4">Shipments will appear here as orders are fulfilled.</td></tr>}
+        </tbody></table></div>
+      </section>
+      <section class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Invoice register</h2><div class="small text-secondary">Balance and currency are stored with each invoice.</div></div>
+        <div class="card-body border-bottom"><div class="row g-2 align-items-end"><div class="col-sm-4"><label class="form-label small">Partial payment amount</label><input class="form-control" type="number" min="0.01" step="0.01" [(ngModel)]="paymentAmount"></div><div class="col-sm-4"><label class="form-label small">Method</label><select class="form-select" [(ngModel)]="paymentMethod"><option>BANK_TRANSFER</option><option>CARD</option><option>CASH</option><option>CHECK</option></select></div><div class="col-sm-4 small text-secondary">Select Record on an invoice row to post a payment.</div></div></div>
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>INVOICE</th><th>CUSTOMER</th><th>DUE</th><th>STATUS</th><th>TOTAL</th><th>BALANCE</th><th></th></tr></thead><tbody>
+          @for(i of invoices;track i.id){<tr><td class="font-monospace fw-semibold">{{i.invoiceNo}}</td><td>{{i.customer}}</td><td>{{i.dueDate|date:'mediumDate'}}</td><td><span class="badge" [class]="'badge '+(i.status==='PAID'?'text-bg-success':i.status==='OVERDUE'?'text-bg-danger':'text-bg-warning')">{{i.status}}</span></td><td>{{i.currencyCode}} {{i.total|number:'1.2-2'}}</td><td>{{i.currencyCode}} {{i.balance|number:'1.2-2'}}</td><td class="text-nowrap"><button class="btn btn-sm btn-primary me-1" [disabled]="i.balance<=0" (click)="recordInvoicePayment(i)">Record payment</button><button class="btn btn-sm btn-outline-danger" [disabled]="i.balance!==i.total||i.status==='VOID'" (click)="voidInvoice(i)">Void</button></td></tr>}
+          @empty{<tr><td colspan="7" class="text-center text-secondary py-4">No invoices have been issued.</td></tr>}
+        </tbody></table></div>
+      </section>
+    }
+
+    @if(section==='factory'){
+      <section class="card border-0 shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3"><div><h2 class="h6 fw-bold mb-1">Shop-floor terminal</h2><div class="small text-secondary">Active work orders and production reporting for tablet and desktop use.</div></div><button class="btn btn-outline-secondary btn-sm" (click)="load()">Refresh queue</button></div>
+        <div class="card-body border-bottom"><h3 class="h6 fw-semibold">Capacity schedule</h3><div class="row g-2 align-items-end"><div class="col-md-3"><label class="form-label small">Work order</label><select class="form-select" [(ngModel)]="scheduleForm.workOrderId"><option value="">Select work order</option>@for(w of shopFloor;track w.id){<option [value]="w.id">{{w.workNo}} · {{w.productName}}</option>}</select></div><div class="col-md-3"><label class="form-label small">Work center</label><select class="form-select" [(ngModel)]="scheduleForm.workCenterId"><option value="">Select work center</option>@for(c of workCenters;track c.id){<option [value]="c.id">{{c.code}} · {{c.name}}</option>}</select></div><div class="col-md-3"><label class="form-label small">Start time</label><input class="form-control" type="datetime-local" [(ngModel)]="scheduleForm.startsAt"></div><div class="col-md-3"><button class="btn btn-outline-primary w-100" (click)="createSchedule()">Check capacity & schedule</button></div></div><div class="small text-secondary mt-3">The planner rejects shift conflicts and work-center capacity overruns.</div>@if(workSchedule.length){<div class="table-responsive mt-3"><table class="table table-sm align-middle mb-0"><thead><tr><th>WORK ORDER</th><th>WORK CENTER</th><th>START</th><th>END</th><th>STATUS</th></tr></thead><tbody>@for(s of workSchedule;track s.id){<tr><td>{{s.workNo||('WO-'+s.workOrderId)}}</td><td>{{s.workCenter||s.workCenterName}}</td><td>{{s.startsAt|date:'short'}}</td><td>{{s.endsAt|date:'short'}}</td><td><span class="badge text-bg-secondary">{{s.status}}</span></td></tr>}</tbody></table></div>}</div>
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>WORK ORDER</th><th>PRODUCT</th><th>ORDER</th><th>REMAINING</th><th>NEXT OPERATION</th><th>STATUS</th><th></th></tr></thead><tbody>
+          @for(w of shopFloor;track w.id){<tr><td class="font-monospace fw-semibold">{{w.workNo}}</td><td>{{w.productName}}<div class="small text-secondary">{{w.sku}}</div></td><td>{{w.orderNo}}</td><td>{{w.remaining}} {{w.unit}}</td><td>{{w.workCenter||'Unscheduled'}}<div class="small text-secondary">{{w.nextStart|date:'short'}}</div></td><td><span class="badge text-bg-secondary">{{w.status}}</span></td><td><button class="btn btn-sm btn-primary" [disabled]="w.status!=='IN_PROGRESS'||w.remaining<=0" (click)="reportShopFloor(w)">Report 1 unit</button></td></tr>}
+          @empty{<tr><td colspan="7" class="text-center text-secondary py-4">No active work orders in the floor queue.</td></tr>}
+        </tbody></table></div>
+        <div class="card-footer bg-white small text-secondary">Barcode scans, work-center scheduling, machine events, carrier updates, and integration retries are available through the secured API and Swagger page.</div>
+      </section>
+    }
+
+    @if(section==='payroll'){
+      <section class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Manual payroll configuration</h2><div class="small text-secondary">Withholding percentages are company-configured inputs; no statutory tax calculation is assumed.</div></div>
+        <div class="card-body"><div class="row g-3 align-items-end"><div class="col-sm-3"><label class="form-label small">Period start</label><input class="form-control" type="date" [(ngModel)]="payrollPeriodStart"></div><div class="col-sm-3"><label class="form-label small">Period end</label><input class="form-control" type="date" [(ngModel)]="payrollPeriodEnd"></div><div class="col-sm-3"><label class="form-label small">Default hourly hours</label><input class="form-control" type="number" min="0" [(ngModel)]="payrollHours"></div><div class="col-sm-3"><button class="btn btn-primary w-100" (click)="createPayrollRun()">Create draft run</button></div></div><div class="small text-secondary mt-3">Salary employees use the configured per-run rate. Hourly employees use the hours above; overtime defaults to zero and can be entered in detailed payroll records.</div></div>
+      </section>
+      <section class="card border-0 shadow-sm mb-4"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Employees</h2><div class="small text-secondary">Configure a pay rate and manual withholding for this company.</div></div><div class="card-body border-bottom"><div class="row g-2 align-items-end"><div class="col-md-2"><label class="form-label small">Employee code</label><input class="form-control" [(ngModel)]="employeeForm.employeeCode"></div><div class="col-md-2"><label class="form-label small">First name</label><input class="form-control" [(ngModel)]="employeeForm.firstName"></div><div class="col-md-2"><label class="form-label small">Last name</label><input class="form-control" [(ngModel)]="employeeForm.lastName"></div><div class="col-md-2"><label class="form-label small">Department</label><input class="form-control" [(ngModel)]="employeeForm.department"></div><div class="col-md-2"><label class="form-label small">Pay type</label><select class="form-select" [(ngModel)]="employeeForm.payType"><option>SALARY</option><option>HOURLY</option></select></div><div class="col-md-2"><label class="form-label small">Rate per run/hour</label><input class="form-control" type="number" min="0" step="0.01" [(ngModel)]="employeeForm.payRate"></div><div class="col-md-2"><label class="form-label small">Withholding %</label><input class="form-control" type="number" min="0" max="100" step="0.01" [(ngModel)]="employeeForm.taxWithholdingRate"></div><div class="col-md-2"><button class="btn btn-primary w-100" (click)="saveEmployee()">Add employee</button></div></div></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>EMPLOYEE</th><th>DEPARTMENT</th><th>PAY TYPE</th><th>RATE</th><th>WITHHOLDING</th></tr></thead><tbody>@for(e of employees;track e.id){<tr><td>{{e.firstName}} {{e.lastName}}<div class="small text-secondary">{{e.employeeCode}}</div></td><td>{{e.department||'—'}}</td><td>{{e.payType}}</td><td>{{companyProfile.baseCurrency}} {{e.payRate|number:'1.2-2'}}</td><td>{{e.taxWithholdingRate}}%</td></tr>}@empty{<tr><td colspan="5" class="text-center text-secondary py-4">No employee records for this company yet.</td></tr>}</tbody></table></div></section>
+      <section class="card border-0 shadow-sm mb-4"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Finance approver accounts</h2><div class="small text-secondary">Administrator only. Use separate accounts for creating, reviewing, approving, and posting a payroll run.</div></div><div class="card-body"><div class="row g-2 align-items-end"><div class="col-md-3"><label class="form-label small">Name</label><input class="form-control" [(ngModel)]="financeUserForm.name"></div><div class="col-md-3"><label class="form-label small">Email</label><input class="form-control" type="email" [(ngModel)]="financeUserForm.email"></div><div class="col-md-3"><label class="form-label small">Initial password</label><input class="form-control" type="password" minlength="12" [(ngModel)]="financeUserForm.password"></div><div class="col-md-3"><button class="btn btn-outline-primary w-100" (click)="createFinanceUser()">Add finance user</button></div></div></div></section>
+      <section class="card border-0 shadow-sm"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Review, approve & post</h2><div class="small text-secondary">The creator cannot review or approve their own run. Every transition is audited, and posting checks are enforced by the API.</div></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>RUN</th><th>PERIOD</th><th>EMPLOYEES</th><th>STATUS</th><th>GROSS</th><th>WITHHOLDING</th><th>NET</th><th>ACTION</th></tr></thead><tbody>@for(r of payrollRuns;track r.id){<tr><td class="font-monospace">PAY-{{r.id}}</td><td>{{r.periodStart|date:'mediumDate'}} – {{r.periodEnd|date:'mediumDate'}}</td><td>{{r.employees}}</td><td><span class="badge text-bg-secondary">{{r.status}}</span></td><td>{{companyProfile.baseCurrency}} {{r.grossTotal|number:'1.2-2'}}</td><td>{{companyProfile.baseCurrency}} {{r.withholdingTotal|number:'1.2-2'}}</td><td>{{companyProfile.baseCurrency}} {{r.netTotal|number:'1.2-2'}}</td><td class="text-nowrap">@if(r.status==='DRAFT'){<button class="btn btn-sm btn-outline-primary" (click)="payrollAction(r,'review')">Review</button>} @if(r.status==='REVIEWED'){<button class="btn btn-sm btn-outline-primary" (click)="payrollAction(r,'approve')">Approve</button>} @if(r.status==='APPROVED'){<button class="btn btn-sm btn-primary" (click)="payrollAction(r,'post')">Post</button>}</td></tr>}@empty{<tr><td colspan="8" class="text-center text-secondary py-4">No payroll runs yet.</td></tr>}</tbody></table></div></section>
+    }
+
+    @if(section==='company-settings'){
+      <section class="card border-0 shadow-sm mb-4"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Company books & tax profile</h2><div class="small text-secondary">Each authorized company has its own base currency and fiscal-year settings.</div></div><div class="card-body"><div class="row g-3"><div class="col-md-3"><label class="form-label small">Base currency</label><input class="form-control text-uppercase" maxlength="3" [(ngModel)]="companyProfile.baseCurrency"></div><div class="col-md-5"><label class="form-label small">Tax jurisdiction profile</label><input class="form-control" [(ngModel)]="companyProfile.taxProfile" placeholder="Configured by your finance team"></div><div class="col-md-2"><label class="form-label small">Fiscal year starts</label><input class="form-control" type="number" min="1" max="12" [(ngModel)]="companyProfile.fiscalYearStartMonth"></div><div class="col-md-2 d-flex align-items-end"><button class="btn btn-primary w-100" (click)="saveCompanyProfile()">Save</button></div></div></div></section>
+      <section class="card border-0 shadow-sm mb-4"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Companies assigned to your account</h2><div class="small text-secondary">Company isolation is enforced through the existing user-to-company assignment.</div></div><div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>CODE</th><th>COMPANY</th><th>ROLE</th><th>BOOK CURRENCY</th><th>TAX PROFILE</th></tr></thead><tbody>@for(c of companies;track c.id){<tr><td class="font-monospace">{{c.code}}</td><td>{{c.name}}</td><td><span class="badge text-bg-secondary">{{c.role}}</span></td><td>{{c.baseCurrency||'USD'}}</td><td>{{c.taxProfile||'—'}}</td></tr>}@empty{<tr><td colspan="5" class="text-center text-secondary py-4">No companies assigned to this account.</td></tr>}</tbody></table></div><div class="card-body border-top"><h3 class="h6">Add company</h3><div class="row g-2 align-items-end"><div class="col-md-2"><label class="form-label small">Code</label><input class="form-control" [(ngModel)]="companyForm.code"></div><div class="col-md-4"><label class="form-label small">Company name</label><input class="form-control" [(ngModel)]="companyForm.name"></div><div class="col-md-2"><label class="form-label small">Base currency</label><input class="form-control text-uppercase" maxlength="3" [(ngModel)]="companyForm.baseCurrency"></div><div class="col-md-2"><label class="form-label small">Tax profile</label><input class="form-control" [(ngModel)]="companyForm.taxProfile"></div><div class="col-md-2"><button class="btn btn-outline-primary w-100" (click)="createCompany()">Create company</button></div></div></div></section>
+      <section class="card border-0 shadow-sm"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Dated exchange rates</h2><div class="small text-secondary">Rates are entered by authorized finance users and used for consolidated reporting.</div></div><div class="card-body"><div class="row g-3 align-items-end"><div class="col-sm-2"><label class="form-label small">From</label><input class="form-control text-uppercase" maxlength="3" [(ngModel)]="exchangeRate.fromCurrency"></div><div class="col-sm-2"><label class="form-label small">To</label><input class="form-control text-uppercase" maxlength="3" [(ngModel)]="exchangeRate.toCurrency"></div><div class="col-sm-3"><label class="form-label small">Effective date</label><input class="form-control" type="date" [(ngModel)]="exchangeRate.effectiveOn"></div><div class="col-sm-3"><label class="form-label small">Units of To per From</label><input class="form-control" type="number" min="0.00000001" step="0.00000001" [(ngModel)]="exchangeRate.rate"></div><div class="col-sm-2"><button class="btn btn-outline-primary w-100" (click)="saveExchangeRate()">Save rate</button></div></div></div></section>
+    }
+
+    @if(section==='consolidated'){
+      <section class="card border-0 shadow-sm"><div class="card-header bg-white py-3"><h2 class="h6 fw-bold mb-1">Consolidated company report</h2><div class="small text-secondary">Only companies assigned to your account are included. Missing rates prevent a combined currency total.</div></div><div class="card-body border-bottom"><div class="row g-3 align-items-end"><div class="col-md-3"><label class="form-label small">From</label><input class="form-control" type="date" [(ngModel)]="reportingFrom"></div><div class="col-md-3"><label class="form-label small">To</label><input class="form-control" type="date" [(ngModel)]="reportingTo"></div><div class="col-md-2"><label class="form-label small">Reporting currency</label><input class="form-control text-uppercase" maxlength="3" [(ngModel)]="reportingCurrency"></div><div class="col-md-2"><button class="btn btn-primary" (click)="loadConsolidated()">Run report</button></div></div></div>
+        @if(consolidated.complete){<div class="alert alert-success m-3 mb-0">{{consolidated.reportingCurrency}} {{consolidated.revenueTotal|number:'1.2-2'}} revenue · {{consolidated.reportingCurrency}} {{consolidated.payrollExpenseTotal|number:'1.2-2'}} payroll expense</div>} @else if(consolidated.companies?.length){<div class="alert alert-warning m-3 mb-0">Add a dated exchange rate for each missing company currency before using consolidated totals.</div>}
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead class="table-light"><tr><th>COMPANY</th><th>BASE</th><th>REVENUE</th><th>PAYROLL EXPENSE</th><th>CONVERTED REVENUE</th><th>RATE STATUS</th></tr></thead><tbody>@for(c of consolidated.companies||[];track c.companyId){<tr><td>{{c.code}} · {{c.company}}</td><td>{{c.baseCurrency}}</td><td>{{c.baseCurrency}} {{c.revenue|number:'1.2-2'}}</td><td>{{c.baseCurrency}} {{c.payrollExpense|number:'1.2-2'}}</td><td>{{c.convertedRevenue==null?'—':(consolidated.reportingCurrency+' '+(c.convertedRevenue|number:'1.2-2'))}}</td><td><span class="badge" [class]="c.exchangeRateMissing?'badge text-bg-warning':'badge text-bg-success'">{{c.exchangeRateMissing?'Rate required':'Converted'}}</span></td></tr>}@empty{<tr><td colspan="6" class="text-center text-secondary py-4">Choose dates and run the report.</td></tr>}</tbody></table></div>
+      </section>
+    }
+
+    @if(section==='database'){
+      <section class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-3 p-md-4 bg-white">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="rounded-3 bg-info bg-opacity-10 text-primary p-3 border border-info border-opacity-25 d-none d-sm-block">
+                <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                </svg>
+              </div>
+              <div>
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                    <span class="pulse-indicator me-1"></span> {{dbStatus.status || 'ONLINE'}}
+                  </span>
+                  <span class="badge text-bg-light border font-monospace">MySQL {{dbStatus.databaseVersion || '8.0'}}</span>
+                  @if(liveSyncActive){
+                    <span class="badge bg-success text-white px-2 py-1 d-inline-flex align-items-center gap-1">
+                      <span class="spinner-grow spinner-grow-sm" style="width:0.5rem;height:0.5rem"></span> LIVE SYNC (3s)
+                    </span>
+                  }
+                </div>
+                <h2 class="h5 fw-bold mb-0 mt-1">Live Database: <span class="text-primary font-monospace">{{dbStatus.databaseName || 'ordercraft'}}</span></h2>
+                <div class="small text-secondary">Host: <code>127.0.0.1:3306</code> · User: <code>ordercraft_app</code> · Tables: <strong>{{dbTables.length}}</strong></div>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap gap-2 w-100 w-md-auto justify-content-start justify-content-md-end">
+              <button class="btn btn-sm" [class.btn-success]="liveSyncActive" [class.btn-outline-secondary]="!liveSyncActive" (click)="toggleLiveSync()">
+                @if(liveSyncActive){ ⏹ Pause Live Sync } @else { 🔴 Live Sync (3s) }
+              </button>
+              <button class="btn btn-primary btn-sm" (click)="openInsertModal()">＋ Insert Row</button>
+              <button class="btn btn-outline-secondary btn-sm" (click)="loadDatabaseInfo()">↻ Refresh</button>
+              <button class="btn btn-outline-dark btn-sm" (click)="copyDbConnection()">📋 CLI</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-light px-3 px-md-4 py-2 border-top d-flex flex-wrap align-items-center justify-content-between small text-secondary gap-2">
+          <span>JDBC URL: <code class="text-dark">{{dbStatus.connectionUrl || 'jdbc:mysql://localhost:3306/ordercraft'}}</code></span>
+          <span>Migrations: <strong class="text-success">{{dbStatus.migrations?.length || 4}} applied successfully</strong></span>
+        </div>
+      </section>
+
+      <div class="row g-3">
+        <!-- Mobile Table Quick Dropdown (< 992px) -->
+        <div class="col-12 d-lg-none">
+          <div class="card border-0 shadow-sm p-3">
+            <label class="form-label small fw-semibold text-secondary mb-1">Select MySQL Table ({{filteredTables().length}} available):</label>
+            <select class="form-select font-monospace" [ngModel]="selectedTable" (ngModelChange)="selectDatabaseTable($event)">
+              @for(t of dbTables; track t.tableName) {
+                <option [value]="t.tableName">{{t.tableName}} ({{t.estimatedRows}} rows)</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <!-- Desktop Table Sidebar (>= 992px) -->
+        <div class="col-12 col-lg-3 d-none d-lg-block">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 class="h6 fw-bold mb-0">Tables ({{filteredTables().length}})</h3>
+                <span class="small text-secondary">Live schema</span>
+              </div>
+              <input class="form-control form-control-sm" type="search" placeholder="Filter tables..." [(ngModel)]="dbSearchTerm">
+            </div>
+            <div class="list-group list-group-flush overflow-auto" style="max-height: 580px;">
+              @for(t of filteredTables(); track t.tableName) {
+                <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-2"
+                        [class.active]="selectedTable === t.tableName"
+                        (click)="selectDatabaseTable(t.tableName)">
+                  <span class="font-monospace small text-truncate" style="max-width: 170px;">{{t.tableName}}</span>
+                  <span class="badge" [class]="selectedTable === t.tableName ? 'text-bg-light' : 'text-bg-secondary'">{{t.estimatedRows}}</span>
+                </button>
+              } @empty {
+                <div class="p-3 text-center text-secondary small">No tables matching search.</div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Table Inspection & Record View -->
+        <div class="col-12 col-lg-9">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                <div>
+                  <div class="small text-uppercase text-secondary fw-semibold">Table Inspection & Real-Time Data</div>
+                  <h3 class="h5 fw-bold font-monospace text-primary mb-0">{{selectedTable}}</h3>
+                </div>
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                  <span class="badge text-bg-primary fs-6">{{tableData.totalRows || 0}} records</span>
+                  <button class="btn btn-sm btn-primary" (click)="openInsertModal()">＋ Insert Row</button>
+                  <button class="btn btn-sm btn-outline-secondary" (click)="selectDatabaseTable(selectedTable)">↻ Refresh</button>
+                </div>
+              </div>
+              <div class="d-flex flex-wrap gap-2 align-items-center mt-2">
+                <input class="form-control form-control-sm" style="max-width: 280px;" type="search" placeholder="Search table rows..." [(ngModel)]="tableSearchTerm">
+                <span class="small text-secondary">Showing latest stored records · Real-time editable</span>
+              </div>
+            </div>
+
+            <div class="px-3 py-2 bg-light border-bottom d-flex flex-wrap gap-1 align-items-center overflow-auto" style="max-height: 110px;">
+              <span class="small text-secondary me-1">Columns:</span>
+              @for(c of tableData.columns||[]; track c.columnName) {
+                <span class="badge bg-white text-dark border font-monospace small">
+                  @if(c.columnKey === 'PRI'){<span class="text-warning fw-bold">🔑 </span>}
+                  {{c.columnName}} <span class="text-muted">({{c.dataType}})</span>
+                </span>
+              }
+            </div>
+
+            <div class="table-responsive" style="max-height: 520px; -webkit-overflow-scrolling: touch;">
+              <table class="table table-sm table-hover align-middle mb-0 font-monospace small">
+                <thead class="table-light sticky-top">
+                  <tr>
+                    @for(c of tableData.columns||[]; track c.columnName) {
+                      <th class="text-nowrap px-3 py-2">{{c.columnName}}</th>
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  @for(row of filteredTableRows(); track $index) {
+                    <tr>
+                      @for(c of tableData.columns||[]; track c.columnName) {
+                        <td class="text-nowrap px-3" style="max-width: 260px; overflow: hidden; text-overflow: ellipsis;" [title]="row[c.columnName] ?? 'NULL'">
+                          @if(row[c.columnName] == null) {
+                            <span class="text-muted fst-italic">null</span>
+                          } @else if(c.columnName.includes('password')) {
+                            <span class="text-muted">••••••••••</span>
+                          } @else {
+                            {{row[c.columnName]}}
+                          }
+                        </td>
+                      }
+                    </tr>
+                  } @empty {
+                    <tr>
+                      <td [attr.colspan]="(tableData.columns?.length || 1)" class="text-center text-secondary py-5">
+                        @if(dbLoading) { Loading table records... } @else { No records in this table yet. Click "＋ Insert Row" to add one! }
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <footer class="d-flex flex-wrap justify-content-between gap-2 mt-4 pt-3 border-top small text-secondary">
+      <span>OrderCraft Manufacturing Portal</span>
+      <span>MySQL 8.0 · Real-Time Data · Multi-Tenant Scope</span>
+    </footer>
+  </main>
+
+  <!-- Sales Order Modal -->
+  @if(showOrder){<div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index:1080" (click)="showOrder=false"><section class="card border-0 shadow-lg w-100" style="max-width:560px" (click)="$event.stopPropagation()"><div class="card-header bg-white d-flex justify-content-between align-items-center py-3"><div><div class="small text-uppercase text-primary fw-semibold">CUSTOMER DEMAND</div><h2 class="h5 mb-0">New sales order</h2></div><button class="btn-close" aria-label="Close" (click)="showOrder=false"></button></div><div class="card-body"><p class="small text-secondary">Order lines capture a product and active BOM revision when confirmed.</p><div class="mb-3"><label class="form-label">Customer</label><select class="form-select" [(ngModel)]="orderForm.customerId"><option value="">Select customer</option>@for(c of customers;track c.id){<option [value]="c.id">{{c.name}}</option>}</select></div><div class="mb-3"><label class="form-label">Finished product</label><select class="form-select" [(ngModel)]="orderForm.productId"><option value="">Select product</option>@for(p of products;track p.id){@if(p.kind==='FINISHED'){<option [value]="p.id">{{p.sku}} · {{p.name}}</option>}}</select></div><div class="row g-3"><div class="col"><label class="form-label">Quantity</label><input class="form-control" type="number" min="1" [(ngModel)]="orderForm.quantity"></div><div class="col"><label class="form-label">Requested due date</label><input class="form-control" type="date" [(ngModel)]="orderForm.dueDate"></div></div></div><div class="card-footer bg-white d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" (click)="showOrder=false">Cancel</button><button class="btn btn-primary" (click)="createOrder()">Create draft order</button></div></section></div>}
+
+  <!-- Purchase Order Modal -->
+  @if(showPo){<div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index:1080" (click)="showPo=false"><section class="card border-0 shadow-lg w-100" style="max-width:520px" (click)="$event.stopPropagation()"><div class="card-header bg-white d-flex justify-content-between align-items-center py-3"><div><div class="small text-uppercase text-primary fw-semibold">MATERIAL PURCHASING</div><h2 class="h5 mb-0">Create purchase order</h2></div><button class="btn-close" aria-label="Close" (click)="showPo=false"></button></div><div class="card-body"><p class="small text-secondary">Receiving updates on-hand stock and the immutable ledger.</p><div class="mb-3"><label class="form-label">Supplier</label><select class="form-select" [(ngModel)]="poForm.supplierId"><option value="">Select supplier</option>@for(s of suppliers;track s.id){<option [value]="s.id">{{s.name}}</option>}</select></div><div class="mb-3"><label class="form-label">Material / component</label><select class="form-select" [(ngModel)]="poForm.productId"><option value="">Select component</option>@for(p of products;track p.id){@if(p.kind!=='FINISHED'){<option [value]="p.id">{{p.sku}} · {{p.name}}</option>}}</select></div><div><label class="form-label">Quantity</label><input class="form-control" type="number" min="1" [(ngModel)]="poForm.quantity"></div></div><div class="card-footer bg-white d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" (click)="showPo=false">Cancel</button><button class="btn btn-primary" (click)="createPo()">Create PO</button></div></section></div>}
+
+  <!-- Stock Adjustment Modal -->
+  @if(showAdjustment){<div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index:1080" (click)="showAdjustment=false"><section class="card border-0 shadow-lg w-100" style="max-width:520px" (click)="$event.stopPropagation()"><div class="card-header bg-white d-flex justify-content-between align-items-center py-3"><div><div class="small text-uppercase text-primary fw-semibold">AUDITED CORRECTION</div><h2 class="h5 mb-0">Adjust stock</h2></div><button class="btn-close" aria-label="Close" (click)="showAdjustment=false"></button></div><div class="card-body"><p class="small text-secondary">Corrections append to the ledger. Negative available stock is rejected.</p><div class="mb-3"><label class="form-label">Product</label><select class="form-select" [(ngModel)]="adjustmentForm.productId"><option value="">Select item</option>@for(p of products;track p.id){<option [value]="p.id">{{p.sku}} · {{p.name}}</option>}</select></div><div class="mb-3"><label class="form-label">Warehouse</label><select class="form-select" [(ngModel)]="adjustmentForm.warehouseId"><option value="">Select warehouse</option>@for(w of warehouses;track w.id){<option [value]="w.id">{{w.name}}</option>}</select></div><div class="mb-3"><label class="form-label">Quantity change</label><input class="form-control" type="number" step="0.001" [(ngModel)]="adjustmentForm.quantity"></div><div><label class="form-label">Reason</label><input class="form-control" [(ngModel)]="adjustmentForm.reason" placeholder="Count correction reason"></div></div><div class="card-footer bg-white d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" (click)="showAdjustment=false">Cancel</button><button class="btn btn-primary" (click)="createAdjustment()">Record adjustment</button></div></section></div>}
+
+  <!-- User Creation Modal -->
+  @if(showUser){<div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index:1080" (click)="showUser=false"><section class="card border-0 shadow-lg w-100" style="max-width:520px" (click)="$event.stopPropagation()"><div class="card-header bg-white d-flex justify-content-between align-items-center py-3"><div><div class="small text-uppercase text-primary fw-semibold">TENANT & COMPANY ACCESS</div><h2 class="h5 mb-0">Add user</h2></div><button class="btn-close" aria-label="Close" (click)="showUser=false"></button></div><div class="card-body"><div class="mb-3"><label class="form-label">Full name</label><input class="form-control" [(ngModel)]="userForm.name"></div><div class="mb-3"><label class="form-label">Email</label><input class="form-control" type="email" [(ngModel)]="userForm.email"></div><div class="mb-3"><label class="form-label">Initial password</label><input class="form-control" type="password" [(ngModel)]="userForm.password" placeholder="At least 12 characters"></div><div><label class="form-label">Company role</label><select class="form-select" [(ngModel)]="userForm.role"><option>OPERATOR</option><option>PRODUCTION</option><option>INVENTORY</option><option>BUYER</option><option>SALES</option><option>PLANNER</option><option>MANAGER</option><option>ADMIN</option><option>VIEWER</option></select></div></div><div class="card-footer bg-white d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" (click)="showUser=false">Cancel</button><button class="btn btn-primary" (click)="createUser()">Create access</button></div></section></div>}
+
+  <!-- Real-Time Customer Modal -->
+  @if(showCustomerModal){
+    <div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index:1080" (click)="showCustomerModal=false">
+      <section class="card border-0 shadow-lg w-100" style="max-width:500px" (click)="$event.stopPropagation()">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+          <div><div class="small text-uppercase text-primary fw-semibold">REAL-TIME DATA CREATION</div><h2 class="h5 mb-0">Add Customer</h2></div>
+          <button class="btn-close" aria-label="Close" (click)="showCustomerModal=false"></button>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Customer Name *</label>
+            <input class="form-control" [(ngModel)]="customerForm.name" placeholder="e.g. Acme Industrial Corp">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Customer Code</label>
+            <input class="form-control font-monospace" [(ngModel)]="customerForm.code" placeholder="Leave empty to auto-generate (e.g. C-170...)">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Contact Email</label>
+            <input class="form-control" type="email" [(ngModel)]="customerForm.email" placeholder="orders@acme.com">
+          </div>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-end gap-2">
+          <button class="btn btn-outline-secondary" (click)="showCustomerModal=false">Cancel</button>
+          <button class="btn btn-primary" (click)="createCustomer()">Create Customer</button>
+        </div>
+      </section>
+    </div>
+  }
+
+  <!-- Real-Time Supplier Modal -->
+  @if(showSupplierModal){
+    <div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index:1080" (click)="showSupplierModal=false">
+      <section class="card border-0 shadow-lg w-100" style="max-width:500px" (click)="$event.stopPropagation()">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+          <div><div class="small text-uppercase text-primary fw-semibold">REAL-TIME DATA CREATION</div><h2 class="h5 mb-0">Add Supplier</h2></div>
+          <button class="btn-close" aria-label="Close" (click)="showSupplierModal=false"></button>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Supplier Name *</label>
+            <input class="form-control" [(ngModel)]="supplierForm.name" placeholder="e.g. Precision Parts Ltd.">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Supplier Code</label>
+            <input class="form-control font-monospace" [(ngModel)]="supplierForm.code" placeholder="Leave empty to auto-generate (e.g. S-170...)">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Standard Lead Time (Days)</label>
+            <input class="form-control" type="number" min="1" [(ngModel)]="supplierForm.leadDays">
+          </div>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-end gap-2">
+          <button class="btn btn-outline-secondary" (click)="showSupplierModal=false">Cancel</button>
+          <button class="btn btn-primary" (click)="createSupplier()">Create Supplier</button>
+        </div>
+      </section>
+    </div>
+  }
+
+  <!-- Real-Time Product Modal -->
+  @if(showProductModal){
+    <div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-3" style="z-index:1080" (click)="showProductModal=false">
+      <section class="card border-0 shadow-lg w-100" style="max-width:540px" (click)="$event.stopPropagation()">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+          <div><div class="small text-uppercase text-primary fw-semibold">REAL-TIME DATA CREATION</div><h2 class="h5 mb-0">Add Product or Material</h2></div>
+          <button class="btn-close" aria-label="Close" (click)="showProductModal=false"></button>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-12 col-sm-6">
+              <label class="form-label small fw-semibold">SKU *</label>
+              <input class="form-control font-monospace" [(ngModel)]="productForm.sku" placeholder="e.g. MAT-040 or FG-200">
+            </div>
+            <div class="col-12 col-sm-6">
+              <label class="form-label small fw-semibold">Classification *</label>
+              <select class="form-select" [(ngModel)]="productForm.kind">
+                <option value="MATERIAL">MATERIAL (Purchased Component)</option>
+                <option value="FINISHED">FINISHED (Manufactured Good)</option>
+                <option value="SUBASSEMBLY">SUBASSEMBLY</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label small fw-semibold">Product Name *</label>
+              <input class="form-control" [(ngModel)]="productForm.name" placeholder="e.g. Cast Iron Manifold 4-Way">
+            </div>
+            <div class="col-12 col-sm-6">
+              <label class="form-label small fw-semibold">Unit of Measure</label>
+              <select class="form-select" [(ngModel)]="productForm.unit">
+                <option value="ea">ea (Each)</option>
+                <option value="kg">kg (Kilogram)</option>
+                <option value="m">m (Meter)</option>
+                <option value="L">L (Liter)</option>
+                <option value="box">box</option>
+              </select>
+            </div>
+            <div class="col-12 col-sm-6">
+              <label class="form-label small fw-semibold">Reorder Threshold</label>
+              <input class="form-control" type="number" min="0" step="1" [(ngModel)]="productForm.reorderPoint">
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-end gap-2">
+          <button class="btn btn-outline-secondary" (click)="showProductModal=false">Cancel</button>
+          <button class="btn btn-primary" (click)="createProduct()">Create Product</button>
+        </div>
+      </section>
+    </div>
+  }
+
+  <!-- Real-Time MySQL Live Insert Modal -->
+  @if(showInsertModal){
+    <div class="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center justify-content-center p-2 p-sm-3" style="z-index:1085" (click)="showInsertModal=false">
+      <section class="card border-0 shadow-lg w-100" style="max-width:680px; max-height: 90vh;" (click)="$event.stopPropagation()">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3 border-bottom">
+          <div>
+            <div class="small text-uppercase text-primary fw-semibold">MYSQL LIVE DATA INSERTION</div>
+            <h2 class="h5 mb-0 font-monospace">Insert row into <code>{{selectedTable}}</code></h2>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-secondary" (click)="insertJsonMode = !insertJsonMode">
+              {{insertJsonMode ? 'Switch to Form' : 'Switch to JSON'}}
+            </button>
+            <button class="btn-close" aria-label="Close" (click)="showInsertModal=false"></button>
+          </div>
+        </div>
+        <div class="card-body overflow-auto" style="max-height: 60vh;">
+          <p class="small text-secondary mb-3">
+            Real-time record insertion directly into MySQL table <strong>{{selectedTable}}</strong>. Tenant and company scoping are auto-populated.
+          </p>
+
+          @if(insertJsonMode) {
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">JSON Payload (Key-Value map)</label>
+              <textarea class="form-control font-monospace small" rows="12" [(ngModel)]="insertJsonString"></textarea>
+              <div class="form-text">Directly edit properties and click "Commit to MySQL" below.</div>
+            </div>
+          } @else {
+            <div class="row g-3">
+              @for(col of tableData.columns||[]; track col.columnName) {
+                @if(col.columnName !== 'id') {
+                  <div class="col-12 col-sm-6">
+                    <label class="form-label small d-flex justify-content-between align-items-center mb-1">
+                      <span class="font-monospace fw-semibold">{{col.columnName}}</span>
+                      <span class="text-secondary" style="font-size: 0.75rem;">{{col.dataType}}</span>
+                    </label>
+                    @if(col.dataType === 'tinyint' || col.columnName === 'active' || col.columnName === 'enabled') {
+                      <select class="form-select form-select-sm" [(ngModel)]="insertForm[col.columnName]">
+                        <option [ngValue]="true">true (1)</option>
+                        <option [ngValue]="false">false (0)</option>
+                      </select>
+                    } @else if(col.dataType === 'timestamp' || col.dataType === 'datetime') {
+                      <input class="form-control form-control-sm" type="datetime-local" [(ngModel)]="insertForm[col.columnName]">
+                    } @else if(col.dataType === 'date') {
+                      <input class="form-control form-control-sm" type="date" [(ngModel)]="insertForm[col.columnName]">
+                    } @else if(col.dataType === 'decimal' || col.dataType === 'int' || col.dataType === 'bigint') {
+                      <input class="form-control form-control-sm" type="number" [(ngModel)]="insertForm[col.columnName]" [placeholder]="col.isNullable === 'YES' ? 'Optional' : 'Required'">
+                    } @else {
+                      <input class="form-control form-control-sm" type="text" [(ngModel)]="insertForm[col.columnName]" [placeholder]="col.isNullable === 'YES' ? 'Optional' : 'Required'">
+                    }
+                  </div>
+                }
+              }
+            </div>
+          }
+        </div>
+        <div class="card-footer bg-white border-top d-flex flex-wrap justify-content-between align-items-center py-3 gap-2">
+          <span class="small text-secondary font-monospace">Target: {{selectedTable}}</span>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary btn-sm" (click)="showInsertModal=false">Cancel</button>
+            <button class="btn btn-primary btn-sm" (click)="submitInsertRow()" [disabled]="dbLoading">
+              {{dbLoading ? 'Inserting…' : '✓ Commit to MySQL in Real Time'}}
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  }
+
+  @if(toast){<div class="position-fixed bottom-0 end-0 m-3 alert alert-success shadow" style="z-index:1090">✓ {{toast}}</div>}
+</div>
+}
+
+
