@@ -150,7 +150,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.http.post<Row>(this.api + '/auth/login', this.login).subscribe({
       next: r => this.processAuthSuccess(r, 'Signed in successfully'),
-      error: e => {
+      error: (e: any) => {
         this.loading = false;
         this.error = e.error?.message || 'Could not sign in. Check your email and password.';
       }
@@ -172,7 +172,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.showGoogleModal = false;
         this.processAuthSuccess(r, `Connected via Google (${payload.email})`);
       },
-      error: e => {
+      error: (e: any) => {
         this.loading = false;
         this.error = e.error?.message || 'Google authentication failed';
       }
@@ -195,7 +195,7 @@ export class AppComponent implements OnInit, OnDestroy {
         }
         this.notify(r.message || 'Reset code sent to your email.');
       },
-      error: e => {
+      error: (e: any) => {
         this.loading = false;
         this.error = e.error?.message || 'Unable to generate reset instructions.';
       }
@@ -225,7 +225,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.newPassword = '';
         this.notify('Password successfully updated! You can now sign in.');
       },
-      error: e => {
+      error: (e: any) => {
         this.loading = false;
         this.error = e.error?.message || 'Invalid or expired reset code.';
       }
@@ -241,7 +241,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.http.post<Row>(this.api + '/auth/register', this.registerForm).subscribe({
       next: r => this.processAuthSuccess(r, 'Account created and plant access established!'),
-      error: e => {
+      error: (e: any) => {
         this.loading = false;
         this.error = e.error?.message || 'Registration failed. Email may already be in use.';
       }
@@ -414,7 +414,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.tableData = data;
         this.dbLoading = false;
       },
-      error: e => {
+      error: (e: any) => {
         this.dbLoading = false;
         this.error = e.error?.message || 'Could not load table data';
       }
@@ -524,7 +524,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify(`✓ Real-time record inserted into ${this.selectedTable}!`);
         this.selectDatabaseTable(this.selectedTable);
       },
-      error: err => {
+      error: (err: any) => {
         this.dbLoading = false;
         this.error = err.error?.message || 'Could not insert record into MySQL';
       }
@@ -566,7 +566,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Sales order created');
         this.navigate('orders');
       },
-      error: e => (this.error = e.error?.message || 'Order could not be created')
+      error: (e: any) => (this.error = e.error?.message || 'Order could not be created')
     });
   }
 
@@ -576,7 +576,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Order confirmed and work order created');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Order could not be confirmed')
+      error: (e: any) => (this.error = e.error?.message || 'Order could not be confirmed')
     });
   }
 
@@ -586,7 +586,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Materials reserved');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Materials are not available yet')
+      error: (e: any) => (this.error = e.error?.message || 'Materials are not available yet')
     });
   }
 
@@ -598,7 +598,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Production reported and stock updated');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Production report was rejected')
+      error: (e: any) => (this.error = e.error?.message || 'Production report was rejected')
     });
   }
 
@@ -610,7 +610,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Stock adjustment recorded');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Adjustment rejected')
+      error: (e: any) => (this.error = e.error?.message || 'Adjustment rejected')
     });
   }
 
@@ -622,7 +622,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('User access created');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'User could not be created')
+      error: (e: any) => (this.error = e.error?.message || 'User could not be created')
     });
   }
 
@@ -633,7 +633,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Purchase order created');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Purchase order could not be created')
+      error: (e: any) => (this.error = e.error?.message || 'Purchase order could not be created')
     });
   }
 
@@ -649,7 +649,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Customer added in real time');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Could not add customer')
+      error: (e: any) => (this.error = e.error?.message || 'Could not add customer')
     });
   }
 
@@ -665,7 +665,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Supplier added in real time');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Could not add supplier')
+      error: (e: any) => (this.error = e.error?.message || 'Could not add supplier')
     });
   }
 
@@ -681,7 +681,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Product added in real time');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Could not add product')
+      error: (e: any) => (this.error = e.error?.message || 'Could not add product')
     });
   }
 
@@ -696,7 +696,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Receipt recorded');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Receipt could not be recorded')
+      error: (e: any) => (this.error = e.error?.message || 'Receipt could not be recorded')
     });
   }
 
@@ -715,7 +715,7 @@ export class AppComponent implements OnInit, OnDestroy {
         a.click();
         URL.revokeObjectURL(url);
       },
-      error: e => (this.error = e.error?.message || 'Export failed')
+      error: (e: any) => (this.error = e.error?.message || 'Export failed')
     });
   }
 
@@ -753,7 +753,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify(`Invoice ${(r as any).invoiceNo || ''} issued`);
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Invoice could not be issued')
+      error: (e: any) => (this.error = e.error?.message || 'Invoice could not be issued')
     });
   }
 
@@ -763,7 +763,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!orderId) return;
     this.request(`/orders/${orderId}/lines`, 'get').subscribe({
       next: x => (this.orderLines = x as unknown as Row[]),
-      error: e => (this.error = e.error?.message || 'Order lines could not be loaded')
+      error: (e: any) => (this.error = e.error?.message || 'Order lines could not be loaded')
     });
   }
 
@@ -789,7 +789,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.orderLines = [];
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Shipment could not be recorded')
+      error: (e: any) => (this.error = e.error?.message || 'Shipment could not be recorded')
     });
   }
 
@@ -810,7 +810,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Payment recorded');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Payment could not be recorded')
+      error: (e: any) => (this.error = e.error?.message || 'Payment could not be recorded')
     });
   }
 
@@ -820,7 +820,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Invoice voided with a reversal entry');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Invoice could not be voided')
+      error: (e: any) => (this.error = e.error?.message || 'Invoice could not be voided')
     });
   }
 
@@ -828,7 +828,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!this.reportingFrom || !this.reportingTo) return;
     this.request(`/reports/consolidated?from=${this.reportingFrom}&to=${this.reportingTo}&currency=${this.reportingCurrency}`, 'get').subscribe({
       next: x => (this.consolidated = x as Row),
-      error: e => (this.error = e.error?.message || 'Consolidated report could not be loaded')
+      error: (e: any) => (this.error = e.error?.message || 'Consolidated report could not be loaded')
     });
   }
 
@@ -838,7 +838,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.companyProfile = x as Row;
         this.notify('Company finance profile saved');
       },
-      error: e => (this.error = e.error?.message || 'Company profile could not be saved')
+      error: (e: any) => (this.error = e.error?.message || 'Company profile could not be saved')
     });
   }
 
@@ -849,7 +849,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Employee added');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Employee could not be saved')
+      error: (e: any) => (this.error = e.error?.message || 'Employee could not be saved')
     });
   }
 
@@ -859,7 +859,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.financeUserForm = { name: '', email: '', password: '' };
         this.notify('Finance user assigned to this company');
       },
-      error: e => (this.error = e.error?.message || 'Finance user could not be created')
+      error: (e: any) => (this.error = e.error?.message || 'Finance user could not be created')
     });
   }
 
@@ -870,7 +870,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.companyForm = { code: '', name: '', baseCurrency: 'USD', taxProfile: '', fiscalYearStartMonth: 1 };
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Company could not be created')
+      error: (e: any) => (this.error = e.error?.message || 'Company could not be created')
     });
   }
 
@@ -886,7 +886,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Exchange rate saved');
         this.loadConsolidated();
       },
-      error: e => (this.error = e.error?.message || 'Exchange rate could not be saved')
+      error: (e: any) => (this.error = e.error?.message || 'Exchange rate could not be saved')
     });
   }
 
@@ -901,7 +901,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Payroll draft created');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Payroll draft could not be created')
+      error: (e: any) => (this.error = e.error?.message || 'Payroll draft could not be created')
     });
   }
 
@@ -911,7 +911,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify(`Payroll ${action} complete`);
         this.load();
       },
-      error: e => (this.error = e.error?.message || `Payroll ${action} failed`)
+      error: (e: any) => (this.error = e.error?.message || `Payroll ${action} failed`)
     });
   }
 
@@ -926,7 +926,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Shop-floor report recorded');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Production report could not be recorded')
+      error: (e: any) => (this.error = e.error?.message || 'Production report could not be recorded')
     });
   }
 
@@ -946,7 +946,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.notify('Operation scheduled');
         this.load();
       },
-      error: e => (this.error = e.error?.message || 'Work could not be scheduled')
+      error: (e: any) => (this.error = e.error?.message || 'Work could not be scheduled')
     });
   }
 
