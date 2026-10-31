@@ -8,6 +8,8 @@ spring:
     username: ${ORDERCRAFT_DB_USER:ordercraft}
     password: ${ORDERCRAFT_DB_PASSWORD:ordercraft-local}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-init-sql: "SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))"
   flyway:
     enabled: true
     baseline-on-migrate: true
