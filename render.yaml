@@ -31,4 +31,4 @@ services:
     region: oregon
     envVars:
       - key: BACKEND_URL
-        value: http://ordercraft-backend:8081
+        value: https://ordercraft-backend.onrender.com
