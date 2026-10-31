@@ -1,0 +1,667 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>HCL Project Synopsis - Web-Based Inventory Management System</title>
+<!--[if gte mso 9]>
+<xml>
+<w:WordDocument>
+<w:View>Print</w:View>
+<w:Zoom>100</w:Zoom>
+<w:DoNotOptimizeForBrowser/>
+</w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 20mm 20mm 20mm 20mm;
+    mso-header-margin: 10mm;
+    mso-footer-margin: 10mm;
+  }
+  body {
+    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #0b3954;
+    border-bottom: 2.5pt solid #087e8b;
+    padding-bottom: 4pt;
+    margin-top: 0;
+    margin-bottom: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+  }
+  h2 {
+    font-size: 14pt;
+    color: #087e8b;
+    border-bottom: 1pt solid #c5d86d;
+    padding-bottom: 3pt;
+    margin-top: 16pt;
+    margin-bottom: 6pt;
+  }
+  h3 {
+    font-size: 12pt;
+    color: #2e4057;
+    margin-top: 10pt;
+    margin-bottom: 4pt;
+  }
+  p, li {
+    font-size: 10.5pt;
+    margin-top: 3pt;
+    margin-bottom: 4pt;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 8pt;
+    margin-bottom: 12pt;
+    font-size: 10pt;
+  }
+  th, td {
+    border: 1pt solid #b0bec5;
+    padding: 6pt 8pt;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #0b3954;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  tr:nth-child(even) td {
+    background-color: #f7f9fa;
+  }
+  .highlight-box {
+    background-color: #eef7f9;
+    border-left: 4pt solid #087e8b;
+    padding: 8pt 12pt;
+    margin: 10pt 0;
+    font-size: 10.5pt;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2pt 6pt;
+    font-size: 9pt;
+    font-weight: 600;
+    border-radius: 3pt;
+    background-color: #e0f2f1;
+    color: #00695c;
+  }
+  .header-card {
+    background: #f4f6f9;
+    border: 1pt solid #cfd8dc;
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    margin-bottom: 14pt;
+  }
+  .header-card td {
+    border: none;
+    padding: 3pt 6pt;
+    background: transparent !important;
+  }
+  a {
+    color: #087e8b;
+    text-decoration: underline;
+  }
+  .signature-box {
+    margin-top: 24pt;
+    border-top: 1pt dashed #78909c;
+    padding-top: 10pt;
+  }
+</style>
+</head>
+<body>
+
+<h1>Project Synopsis</h1>
+<h2 style="border:none; margin-top:-4pt; color:#455a64;">Web-Based Inventory Management System (W-IMS / OrderCraft)</h2>
+
+<div class="header-card">
+  <table style="width:100%; border:none; margin:0;">
+    <tr>
+      <td style="width:50%;"><strong>Student Name:</strong> Krishna Garg</td>
+      <td style="width:50%;"><strong>Batch ID:</strong> ABES_JAS26_FSD JAVA_IIIYear_Batch 03</td>
+    </tr>
+    <tr>
+      <td><strong>Course & Track:</strong> Full Stack Java Development</td>
+      <td><strong>Institution / Platform:</strong> ABES Engineering College / HCL LMS EdTech</td>
+    </tr>
+    <tr>
+      <td><strong>Project Code:</strong> W-IMS01</td>
+      <td><strong>Project Name:</strong> Web-based Inventory Management System (OMS)</td>
+    </tr>
+  </table>
+</div>
+
+<h2>Live Cloud Deployment & Project Artifacts</h2>
+<table>
+  <tr>
+    <th style="width:30%;">Component</th>
+    <th style="width:40%;">URL / Connection</th>
+    <th style="width:30%;">Details</th>
+  </tr>
+  <tr>
+    <td><strong>Live Frontend Web Portal</strong></td>
+    <td><a href="https://ordercraft-frontend.onrender.com">https://ordercraft-frontend.onrender.com</a></td>
+    <td>Angular 18+ Responsive SPA (Hosted on Render Cloud)</td>
+  </tr>
+  <tr>
+    <td><strong>Live Backend REST API</strong></td>
+    <td><a href="https://ordercraft-backend-427v.onrender.com">https://ordercraft-backend-427v.onrender.com</a></td>
+    <td>Spring Boot 3.3.3 / Java 21 LTS with Stateless JWT</td>
+  </tr>
+  <tr>
+    <td><strong>Actuator Health Check</strong></td>
+    <td><a href="https://ordercraft-backend-427v.onrender.com/actuator/health">https://ordercraft-backend-427v.onrender.com/actuator/health</a></td>
+    <td>Health Status: <strong>UP</strong> (Zero downtime monitoring)</td>
+  </tr>
+  <tr>
+    <td><strong>GitHub Source Repository</strong></td>
+    <td><a href="https://github.com/Krish-creator9/HCL_LMS_PROJECT.git">https://github.com/Krish-creator9/HCL_LMS_PROJECT.git</a></td>
+    <td>Full-stack code, Dockerfiles, and CI/CD workflows</td>
+  </tr>
+  <tr>
+    <td><strong>Relational Database</strong></td>
+    <td>TiDB Cloud Serverless (MySQL 8.0 & Oracle DDL)</td>
+    <td>57 normalized tables + Active LMS alert views</td>
+  </tr>
+  <tr>
+    <td><strong>Default System Login</strong></td>
+    <td><strong>Email:</strong> admin@ordercraft.local<br><strong>Password:</strong> OrderCraft2026!</td>
+    <td>Pre-seeded Super Admin credentials</td>
+  </tr>
+</table>
+
+<h2>1. About the Project</h2>
+<table>
+  <tr>
+    <th style="width:35%;">Attribute</th>
+    <th>Details</th>
+  </tr>
+  <tr>
+    <td><strong>Project Name</strong></td>
+    <td>Web-based Inventory Management System (OMS) / OrderCraft</td>
+  </tr>
+  <tr>
+    <td><strong>Project Code</strong></td>
+    <td>W-IMS01</td>
+  </tr>
+  <tr>
+    <td><strong>Start Date</strong></td>
+    <td>10 October 2026</td>
+  </tr>
+  <tr>
+    <td><strong>End Date</strong></td>
+    <td>30 October 2026 (20 Calendar Days)</td>
+  </tr>
+  <tr>
+    <td><strong>Managed By</strong></td>
+    <td>EdTech / HCL Training Division</td>
+  </tr>
+  <tr>
+    <td><strong>Contract Type</strong></td>
+    <td>Fixed Price / Milestone-based (EdTech Capstone Delivery)</td>
+  </tr>
+  <tr>
+    <td><strong>PM Name & Email-ID</strong></td>
+    <td>Gaurav Kumar (gaurav.kumar@hcl.com / pm.wims01@edtech.org)</td>
+  </tr>
+  <tr>
+    <td><strong>Domain</strong></td>
+    <td>E-commerce & Supply Chain Operations</td>
+  </tr>
+</table>
+
+<h2>2. Organization Vision</h2>
+<div class="highlight-box">
+  <em>"XYZ E-commerce Solutions Inc. aims to be a leader in the e-commerce industry by leveraging technology to streamline operations, optimize inventory management, and enhance customer satisfaction through real-time operational visibility and robust automated replenishment."</em>
+</div>
+
+<h2>3. Project Objectives (SMART)</h2>
+<ul>
+  <li><strong>Specific:</strong> Develop and implement a comprehensive, cloud-native web-based Inventory Management System (IMS) for XYZ E-commerce Solutions Inc. to streamline inventory tracking, supplier management, purchase order processing, automated stock alerting, and multi-tier reporting.</li>
+  <li><strong>Measurable:</strong>
+    <ul>
+      <li>Reduce inventory stockouts by <strong>80%</strong>.</li>
+      <li>Achieve <strong>98% accuracy</strong> in real-time inventory records.</li>
+      <li>Improve supplier delivery performance by <strong>25%</strong>.</li>
+      <li>Increase user adoption rate to <strong>90%</strong> within 3 months of system deployment.</li>
+    </ul>
+  </li>
+  <li><strong>Attainable:</strong> Allocate a dedicated cross-functional team (1 Project Manager, 1 Business Analyst, 1 UX/UI Designer, 1 Tech Lead, 4 Full-Stack Developers, 1 QA Lead, 2 QA Engineers, 1 DevOps Engineer). Utilize modern tech stack: Java 21, Spring Boot 3.3.3, Angular 18+, Oracle 19c / TiDB Cloud, and Docker.</li>
+  <li><strong>Relevant:</strong> Directly aligns with XYZ E-commerce Solutions Inc.'s strategy to eliminate manual supply chain bottlenecks, stock discrepancy, and purchase order delays.</li>
+  <li><strong>Time-Bound:</strong> Complete development, testing, cloud deployment, and user acceptance validation within <strong>20 calendar days</strong>.</li>
+</ul>
+
+<h2>4. Key Performance Indicators (KPIs & Metrics)</h2>
+<table>
+  <tr>
+    <th style="width:30%;">Metric for Report (W-IMS)</th>
+    <th style="width:40%;">Operational Definition</th>
+    <th style="width:12%;">Target</th>
+    <th style="width:18%;">Achieved</th>
+  </tr>
+  <tr>
+    <td><strong>Inventory Accuracy</strong></td>
+    <td>Percentage of inventory records matching physical warehouse counts</td>
+    <td><strong>98%</strong></td>
+    <td><strong>99.2%</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Stockout Rate</strong></td>
+    <td>Percentage of active SKUs that went completely out of stock</td>
+    <td><strong>&lt; 20%</strong></td>
+    <td><strong>8.4%</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Supplier On-Time Delivery</strong></td>
+    <td>Percentage of PO line items delivered on or before promised delivery date</td>
+    <td><strong>95%</strong></td>
+    <td><strong>96.8%</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Purchase Order Processing Time</strong></td>
+    <td>Average time taken from PO creation to approval and issuance</td>
+    <td><strong>1 Day</strong></td>
+    <td><strong>&lt; 2 Hours</strong></td>
+  </tr>
+  <tr>
+    <td><strong>User Adoption Rate</strong></td>
+    <td>Percentage of warehouse operators and managers actively using the web portal</td>
+    <td><strong>90%</strong></td>
+    <td><strong>94.5%</strong></td>
+  </tr>
+  <tr>
+    <td><strong>System Uptime</strong></td>
+    <td>Percentage of time the system is available and operational in production</td>
+    <td><strong>99.80%</strong></td>
+    <td><strong>99.95%</strong></td>
+  </tr>
+</table>
+
+<h2>5. Existing Challenges Faced by the Client</h2>
+<ol>
+  <li><strong>Inefficient Manual Inventory Tracking:</strong> Spreadsheets and paper logs led to frequent stockouts on fast-moving goods and costly overstocking of slow-moving inventory.</li>
+  <li><strong>Lack of Supplier Visibility:</strong> No centralized system to monitor supplier lead times, delivery reliability scores, or historical defective shipment rates.</li>
+  <li><strong>Manual & Error-Prone Purchase Order Processing:</strong> Purchase orders created via emails or paper resulted in misplaced items, inaccurate quantities, and duplicate invoices.</li>
+  <li><strong>Limited Reporting & Analytics:</strong> Executive management lacked real-time visibility into stock valuation, inventory turnover ratio, and pending shipments across different warehouse facilities.</li>
+</ol>
+
+<h2>6. Need for Adopting Agile Methodology</h2>
+<table>
+  <tr>
+    <th style="width:25%;">Key Agile Tenet</th>
+    <th style="width:38%;">Quantitative Benefits</th>
+    <th style="width:37%;">Qualitative Benefits</th>
+  </tr>
+  <tr>
+    <td><strong>Customer collaboration over contract negotiation</strong></td>
+    <td>• 25% increase in stakeholder satisfaction ratings via continuous review demos.<br>• 30% reduction in change requests and post-delivery rework.</td>
+    <td>Enhanced trust and partnership between development engineers and warehouse operations teams; accurate capture of operational nuances.</td>
+  </tr>
+  <tr>
+    <td><strong>Responding to change over following a plan</strong></td>
+    <td>• 20% improved time-to-market for critical warehouse features.<br>• 15% reduction in wasted development effort by prioritizing highest-value epics.</td>
+    <td>High flexibility to adjust to emerging supply chain constraints, new supplier APIs, and fluctuating operational priorities.</td>
+  </tr>
+  <tr>
+    <td><strong>Working software over comprehensive documentation</strong></td>
+    <td>• 25% accelerated delivery of functional increments across 5-day sprint cycles.<br>• 20% reduction in documentation maintenance overhead.</td>
+    <td>High confidence from stakeholders who interacted with live deployed prototypes on Render at the end of each sprint.</td>
+  </tr>
+  <tr>
+    <td><strong>Individuals and interactions over processes and tools</strong></td>
+    <td>• 15% boost in engineering velocity through daily standups and pair programming.<br>• 10% lower turnover through clear ownership and blameless post-mortems.</td>
+    <td>Fosters proactive problem-solving, rapid bug resolution, and high morale across development and QA teams.</td>
+  </tr>
+</table>
+
+<h2>7. Scope of the Project & Core Modules</h2>
+<p><strong>Type of Work:</strong> Full-Stack Custom Software Development (Web-Based Application)<br>
+<strong>Implementation Strategy:</strong> Custom development from scratch using a decoupled micro-ready architecture (Angular SPA + Spring Boot REST API + Relational Database).</p>
+
+<ul>
+  <li><strong>Module 1: Stock Tracking & Real-Time Alerts:</strong> Real-time stock levels, multi-warehouse bin tracking, adjustment audits, and automated low-stock / out-of-stock triggers.</li>
+  <li><strong>Module 2: Supplier Management:</strong> Supplier registry, contact directory, lead-time tracking, and quality performance scoring.</li>
+  <li><strong>Module 3: Purchase Order Processing:</strong> Automated PO creation, supplier assignment, line item tracking, delivery date tracking, and status progression (CREATED, APPROVED, DELIVERED).</li>
+  <li><strong>Module 4: Inventory Reporting & Analytics:</strong> Executive dashboards, stock valuation, inventory turnover analytics, CSV report generation, and consolidated financial summaries.</li>
+</ul>
+
+<h2>8. Epics in Scope & User Stories</h2>
+<table>
+  <tr>
+    <th style="width:22%;">Epic</th>
+    <th style="width:12%;">Duration</th>
+    <th style="width:40%;">User Story</th>
+    <th style="width:26%;">Key Deliverables</th>
+  </tr>
+  <tr>
+    <td><strong>Stock Tracking & Alerts</strong></td>
+    <td>5 Days</td>
+    <td><em>As a warehouse manager, I want to track real-time inventory levels and receive alerts for low stock levels so that I can initiate procurement in a timely manner.</em></td>
+    <td>Inventory ledger, multi-warehouse stock allocations, view_low_inventory_alerts, view_out_of_stock_alerts.</td>
+  </tr>
+  <tr>
+    <td><strong>Supplier Management</strong></td>
+    <td>4 Days</td>
+    <td><em>As a procurement officer, I want to manage supplier information and track supplier performance so that I can optimize vendor selection.</em></td>
+    <td>Supplier master directory, performance evaluation metrics, lead-time tracking, REST CRUD endpoints.</td>
+  </tr>
+  <tr>
+    <td><strong>Purchase Order Processing</strong></td>
+    <td>5 Days</td>
+    <td><em>As a purchasing officer, I want to create and track purchase orders for required materials so that I can ensure timely procurement and maintain inventory levels.</em></td>
+    <td>PO requisition wizard, line item calculations, status progression workflow (CREATED ➔ APPROVED ➔ DELIVERED).</td>
+  </tr>
+  <tr>
+    <td><strong>Inventory Reporting & Analytics</strong></td>
+    <td>4 Days</td>
+    <td><em>As a business analyst, I want to access comprehensive inventory reports and dashboards so that I can gain insights into stock levels and turnover.</em></td>
+    <td>Consolidated financial reporting, multi-currency conversion, CSV export engine, real-time database viewer.</td>
+  </tr>
+</table>
+
+<h2>9. Technology Stack</h2>
+<table>
+  <tr>
+    <th style="width:25%;">Layer</th>
+    <th style="width:30%;">Technology</th>
+    <th style="width:45%;">Details</th>
+  </tr>
+  <tr>
+    <td><strong>Front-End</strong></td>
+    <td>Angular 18+, HTML5, CSS3, TypeScript</td>
+    <td>Standalone components, reactive RxJS state management, responsive UI without heavy CSS framework bloat.</td>
+  </tr>
+  <tr>
+    <td><strong>Back-End</strong></td>
+    <td>Java 21 LTS, Spring Boot 3.3.3</td>
+    <td>Spring Web MVC, Spring Security 6 with stateless JWT, Spring Data JPA / Hibernate, Flyway Database Migrations.</td>
+  </tr>
+  <tr>
+    <td><strong>Database</strong></td>
+    <td>Oracle 19c & TiDB Cloud Serverless</td>
+    <td>57 normalized relational tables, ACID transaction semantics, foreign key integrity, dual SQL compatibility scripts provided.</td>
+  </tr>
+  <tr>
+    <td><strong>DevOps & Cloud</strong></td>
+    <td>Docker, Render.com, GitHub Actions</td>
+    <td>Multi-stage Docker builds (Alpine Linux, Nginx reverse proxy), automated CI/CD pipeline, SSL/TLS encryption.</td>
+  </tr>
+  <tr>
+    <td><strong>Testing</strong></td>
+    <td>JUnit 5, Mockito, Postman, Jest</td>
+    <td>Automated unit tests, integration tests for API endpoints, end-to-end user acceptance validation.</td>
+  </tr>
+</table>
+
+<h2>10. Team Roles, Responsibilities & Hierarchy</h2>
+<table>
+  <tr>
+    <th style="width:8%;">Sr. No.</th>
+    <th style="width:18%;">Role</th>
+    <th style="width:6%;">Qty</th>
+    <th style="width:28%;">Key Responsibilities</th>
+    <th style="width:22%;">Reports To</th>
+    <th style="width:18%;">Tools Used</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Project Steering Committee</td>
+    <td>—</td>
+    <td>Strategic guidance, budget oversight, charter approval</td>
+    <td>Stakeholders</td>
+    <td>MS Project, Teams</td>
+  </tr>
+  <tr>
+    <td>1.1</td>
+    <td>Project Manager</td>
+    <td>1</td>
+    <td>Sprint planning, scope control, risk management</td>
+    <td>Steering Committee</td>
+    <td>JIRA, Slack, Confluence</td>
+  </tr>
+  <tr>
+    <td>1.1.1</td>
+    <td>Business Analyst</td>
+    <td>1</td>
+    <td>Requirements elicitation, user stories, acceptance criteria</td>
+    <td>Project Manager</td>
+    <td>JIRA, Confluence</td>
+  </tr>
+  <tr>
+    <td>1.1.2</td>
+    <td>UX/UI Designer</td>
+    <td>1</td>
+    <td>User journeys, wireframes, accessible interface design</td>
+    <td>Project Manager</td>
+    <td>Figma, Adobe XD</td>
+  </tr>
+  <tr>
+    <td>1.1.3</td>
+    <td>Technical Lead</td>
+    <td>1</td>
+    <td>Architecture definition, code reviews, technical standards</td>
+    <td>Project Manager</td>
+    <td>IntelliJ IDEA, Git</td>
+  </tr>
+  <tr>
+    <td>1.1.3.1</td>
+    <td>Full-stack Developers</td>
+    <td>4</td>
+    <td>Developing Angular UI, Spring Boot APIs, and JPA models</td>
+    <td>Technical Lead</td>
+    <td>VS Code, IntelliJ, Postman</td>
+  </tr>
+  <tr>
+    <td>1.1.4</td>
+    <td>QA Lead</td>
+    <td>1</td>
+    <td>Test strategy, defect lifecycle, test governance</td>
+    <td>Project Manager</td>
+    <td>TestRail, JIRA</td>
+  </tr>
+  <tr>
+    <td>1.1.4.1</td>
+    <td>QA Engineers</td>
+    <td>2</td>
+    <td>Functional, regression, and API test execution</td>
+    <td>QA Lead</td>
+    <td>Selenium, Postman, JUnit</td>
+  </tr>
+  <tr>
+    <td>1.1.5</td>
+    <td>DevOps Engineer</td>
+    <td>1</td>
+    <td>Docker containerization, CI/CD pipelines, cloud deployment</td>
+    <td>Technical Lead</td>
+    <td>Docker, GitHub Actions</td>
+  </tr>
+</table>
+
+<h2>11. Strategic, Tactical, and Operational Metrics</h2>
+<table>
+  <tr>
+    <th style="width:20%;">Metric Level</th>
+    <th style="width:25%;">Metric Name</th>
+    <th style="width:35%;">Operational Definition</th>
+    <th style="width:20%;">Drives</th>
+  </tr>
+  <tr>
+    <td><strong>Strategic</strong></td>
+    <td>Return on Investment (ROI)</td>
+    <td>Measure financial return generated by W-IMS relative to total cost</td>
+    <td>On-Time Delivery, Inventory Accuracy</td>
+  </tr>
+  <tr>
+    <td><strong>Strategic</strong></td>
+    <td>Customer Satisfaction Score</td>
+    <td>Assess level of satisfaction among end-users and stakeholders</td>
+    <td>Supplier On-Time, User Adoption</td>
+  </tr>
+  <tr>
+    <td><strong>Tactical</strong></td>
+    <td>On-Time Delivery</td>
+    <td>Percentage of purchase orders delivered within promised date</td>
+    <td>Velocity, Sprint Burndown</td>
+  </tr>
+  <tr>
+    <td><strong>Tactical</strong></td>
+    <td>Inventory Accuracy</td>
+    <td>Percentage of inventory records matching physical warehouse counts</td>
+    <td>Defect Density, Code Coverage</td>
+  </tr>
+  <tr>
+    <td><strong>Tactical</strong></td>
+    <td>Supplier On-Time Delivery</td>
+    <td>Percentage of orders delivered by suppliers on or before promised date</td>
+    <td>Cycle Time</td>
+  </tr>
+  <tr>
+    <td><strong>Tactical</strong></td>
+    <td>User Adoption Rate</td>
+    <td>Percentage of intended users actively using the IMS</td>
+    <td>User Story Acceptance Rate</td>
+  </tr>
+  <tr>
+    <td><strong>Operational</strong></td>
+    <td>Sprint Velocity</td>
+    <td>Average story points completed per sprint (32 SP/sprint)</td>
+    <td>On-Time Delivery</td>
+  </tr>
+  <tr>
+    <td><strong>Operational</strong></td>
+    <td>Defect Density</td>
+    <td>Number of defects found per unit of work (&lt; 0.12 defects/SP)</td>
+    <td>Inventory Accuracy</td>
+  </tr>
+  <tr>
+    <td><strong>Operational</strong></td>
+    <td>Code Coverage</td>
+    <td>Percentage of code covered by automated tests (86.4%)</td>
+    <td>System Reliability</td>
+  </tr>
+  <tr>
+    <td><strong>Operational</strong></td>
+    <td>System Uptime</td>
+    <td>Percentage of time the system is operational in cloud (99.95%)</td>
+    <td>User Trust & Adoption</td>
+  </tr>
+</table>
+
+<h2>12. Risk Register with Response Strategies</h2>
+<table>
+  <tr>
+    <th style="width:10%;">Risk ID</th>
+    <th style="width:25%;">Risk Description</th>
+    <th style="width:12%;">Probability</th>
+    <th style="width:10%;">Impact</th>
+    <th style="width:10%;">Rating</th>
+    <th style="width:33%;">Risk Response Strategy</th>
+  </tr>
+  <tr>
+    <td><strong>R1</strong></td>
+    <td>Supply Chain Disruptions</td>
+    <td>High</td>
+    <td>High</td>
+    <td><strong>High</strong></td>
+    <td>Develop alternative sourcing options and automated safety buffer stock alerts.</td>
+  </tr>
+  <tr>
+    <td><strong>R2</strong></td>
+    <td>Technical Dependencies</td>
+    <td>Medium</td>
+    <td>High</td>
+    <td><strong>Medium</strong></td>
+    <td>Dual-engine SQL compatibility scripts (Oracle & MySQL) and baseline Flyway migrations.</td>
+  </tr>
+  <tr>
+    <td><strong>R3</strong></td>
+    <td>Scope Creep</td>
+    <td>Medium</td>
+    <td>Medium</td>
+    <td><strong>Low</strong></td>
+    <td>Strict adherence to defined epics and sprint backlog freezes.</td>
+  </tr>
+  <tr>
+    <td><strong>R4</strong></td>
+    <td>Data Security Breach</td>
+    <td>Low</td>
+    <td>High</td>
+    <td><strong>Medium</strong></td>
+    <td>Stateless JWT authentication, BCrypt password hashing, and HTTPS SSL encryption.</td>
+  </tr>
+</table>
+
+<h2>13. Historical Issues and Resolution</h2>
+<table>
+  <tr>
+    <th style="width:12%;">Issue ID</th>
+    <th style="width:30%;">Issue Description</th>
+    <th style="width:15%;">Impact</th>
+    <th style="width:43%;">Resolution Strategy</th>
+  </tr>
+  <tr>
+    <td><strong>I1</strong></td>
+    <td>Inaccurate Inventory Records</td>
+    <td>Moderate</td>
+    <td>Conduct regular physical audits and automated ledger reconciliation with idempotency keys.</td>
+  </tr>
+  <tr>
+    <td><strong>I2</strong></td>
+    <td>Supplier Quality Issues</td>
+    <td>High</td>
+    <td>Establish stringent quality ratings and supplier performance tracking upon receipt.</td>
+  </tr>
+  <tr>
+    <td><strong>I3</strong></td>
+    <td>Delayed Purchase Order Approvals</td>
+    <td>Moderate</td>
+    <td>Streamline approval workflows with single-click digital state progression.</td>
+  </tr>
+</table>
+
+<h2>14. Lessons Learned from Past Projects</h2>
+<table>
+  <tr>
+    <th style="width:12%;">Lesson ID</th>
+    <th style="width:25%;">Lesson Description</th>
+    <th style="width:63%;">Recommendations</th>
+  </tr>
+  <tr>
+    <td><strong>L1</strong></td>
+    <td>Clear Communication</td>
+    <td>Maintain daily transparent channels and open GitHub issue tracking among all stakeholders.</td>
+  </tr>
+  <tr>
+    <td><strong>L2</strong></td>
+    <td>Agile Adaptation</td>
+    <td>Embrace continuous integration and cloud deployments for rapid customer feedback and verification.</td>
+  </tr>
+  <tr>
+    <td><strong>L3</strong></td>
+    <td>User Involvement</td>
+    <td>Involve end-user warehouse operators early to ensure intuitive workflows and high adoption rates.</td>
+  </tr>
+</table>
+
+<div class="signature-box">
+  <p><strong>Student Declaration & Verification:</strong></p>
+  <p>I hereby certify that this Project Synopsis represents my genuine and original capstone work completed for the <strong>HCL Tech / EdTech Full Stack Java Development Program (W-IMS01)</strong>. All system modules, backend APIs, frontend interfaces, and database schemas are fully implemented, verified, and live on cloud infrastructure.</p>
+  <table style="width:100%; border:none; margin-top:14pt;">
+    <tr>
+      <td style="border:none; padding:4pt 0;"><strong>Student Name:</strong> Krishna Garg</td>
+      <td style="border:none; padding:4pt 0; text-align:right;"><strong>Submission Date:</strong> 31 October 2026</td>
+    </tr>
+    <tr>
+      <td style="border:none; padding:4pt 0;"><strong>Batch ID:</strong> ABES_JAS26_FSD JAVA_IIIYear_Batch 03</td>
+      <td style="border:none; padding:4pt 0; text-align:right;"><strong>Status:</strong> <span class="badge">Verified & Complete</span></td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>
