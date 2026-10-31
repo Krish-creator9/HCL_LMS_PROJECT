@@ -20,6 +20,10 @@ RUN rm -rf ./*
 # Copy production artifacts and custom proxy config
 COPY --from=build /app/dist/web/browser ./
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+
+ENV NGINX_ENVSUBST_FILTER="BACKEND_URL"
+ENV BACKEND_URL="http://backend:8081"
 
 EXPOSE 80
 

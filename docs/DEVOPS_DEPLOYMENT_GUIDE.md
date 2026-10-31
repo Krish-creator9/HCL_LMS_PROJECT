@@ -109,19 +109,38 @@ ngrok http 80
 ### Option C: 1-Click Free Cloud Hosting with Render.com
 If you want a permanent link hosted 24/7 on the cloud:
 
-1. Push this `OrderCraft` repository to your GitHub account:
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: complete ordercraft project with devops"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/ordercraft.git
-   git push -u origin main
-   ```
-2. Log in to [Render.com](https://render.com).
-3. Click **New +** &rarr; **Blueprint**.
-4. Select your `ordercraft` repository. Render will automatically read [`render.yaml`](../render.yaml), provision the MySQL database, build the backend, and deploy the Angular frontend.
-5. You will receive a permanent free URL: `https://ordercraft-frontend.onrender.com`.
+#### Step 1: Set Up Free Cloud MySQL (Takes 1 Minute)
+Since Render only provides PostgreSQL natively, pair your Render deployment with a 100% free cloud MySQL database:
+- **TiDB Serverless (Recommended — 5 GB Free Forever):**
+  1. Visit [https://tidbcloud.com](https://tidbcloud.com) and sign up with GitHub or Google.
+  2. Click **Create Cluster** &rarr; select **Serverless (Free)**.
+  3. Once created, click **Connect** &rarr; choose **Spring Boot / JDBC**.
+  4. Note down the **JDBC URL**, **User**, and **Password**.
+- *Alternative:* You can also use [Aiven for MySQL](https://aiven.io) or [Clever Cloud](https://www.clever-cloud.com).
+
+#### Step 2: Push Repository to GitHub
+Ensure all latest changes are pushed:
+```bash
+git add .
+git commit -m "fix: render deployment configuration and jdk21 docker compatibility"
+git push origin main
+```
+
+#### Step 3: Deploy Blueprint on Render
+1. Log in to [Render.com](https://render.com).
+2. Click **New +** &rarr; **Blueprint**.
+3. Select your GitHub repository (`HCL_LMS_PROJECT` or `OrderCraft`).
+4. Render will detect [`render.yaml`](../render.yaml) and prompt you for the environment variables:
+   - `ORDERCRAFT_DB_URL`: Paste your JDBC MySQL connection URL (e.g., `jdbc:mysql://...:4000/ordercraft?useSSL=true&serverTimezone=UTC`)
+   - `ORDERCRAFT_DB_USER`: Your MySQL username
+   - `ORDERCRAFT_DB_PASSWORD`: Your MySQL password
+5. Click **Apply**. Render will automatically:
+   - Build the Java / Spring Boot backend container.
+   - Run Flyway migrations on the cloud MySQL database and seed initial demo accounts.
+   - Build the Angular frontend container with Nginx reverse proxy.
+6. Once deployed, Render will provide your public URLs:
+   - Frontend: `https://ordercraft-frontend.onrender.com`
+   - Backend API: `https://ordercraft-backend.onrender.com`
 
 ---
 

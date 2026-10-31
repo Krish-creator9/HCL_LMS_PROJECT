@@ -1,5 +1,5 @@
 services:
-  # 1. MySQL Managed Database Service
+  # 1. Spring Boot REST API Web Service
   - type: web
     name: ordercraft-backend
     env: docker
@@ -11,13 +11,17 @@ services:
       - key: PORT
         value: 8081
       - key: ORDERCRAFT_DB_URL
-        fromDatabase:
-          name: ordercraft-db
-          property: connectionString
+        sync: false
+      - key: ORDERCRAFT_DB_USER
+        sync: false
+      - key: ORDERCRAFT_DB_PASSWORD
+        sync: false
       - key: ORDERCRAFT_JWT_SECRET
         generateValue: true
+      - key: ORDERCRAFT_DEMO_SEED
+        value: "true"
 
-  # 2. Frontend Angular Web Service
+  # 2. Frontend Angular + Nginx Web Service
   - type: web
     name: ordercraft-frontend
     env: docker
@@ -25,10 +29,6 @@ services:
     dockerfilePath: frontend/Dockerfile
     plan: free
     region: oregon
-
-databases:
-  - name: ordercraft-db
-    databaseName: ordercraft
-    user: ordercraft
-    plan: free
-    region: oregon
+    envVars:
+      - key: BACKEND_URL
+        value: http://ordercraft-backend:8081
