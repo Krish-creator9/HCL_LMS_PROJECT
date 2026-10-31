@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePipe, DecimalPipe, JsonPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, finalize, of } from 'rxjs';
 
@@ -9,11 +9,12 @@ type Row = any;
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, DatePipe, DecimalPipe, JsonPipe],
+  imports: [FormsModule, DatePipe, DecimalPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit, OnDestroy {
+  private http = inject(HttpClient);
   private api = (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com'))
     ? 'https://ordercraft-backend-427v.onrender.com/api/v1'
     : '/api/v1';
@@ -119,9 +120,7 @@ export class AppComponent implements OnInit, OnDestroy {
   liveSyncActive = false;
   liveSyncTimer: any = null;
 
-  constructor() {
-    this.http = inject(HttpClient);
-  }
+  constructor() {}
 
   ngOnInit() {
     if (this.token) {
